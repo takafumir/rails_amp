@@ -1,0 +1,3 @@
+module RailsAmp
+  # Your code goes here...
+end
