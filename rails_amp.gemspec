@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = RailsAmp::VERSION
   s.authors     = ["Takafumi Yamano"]
   s.email       = ["takafumiyamano@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of RailsAmp."
-  s.description = "TODO: Description of RailsAmp."
+  s.homepage    = "http://example.com"
+  s.summary     = "Summary of RailsAmp."
+  s.description = "Description of RailsAmp."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
@@ -19,4 +19,5 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 5.0.1"
 
   s.add_development_dependency "sqlite3"
+  s.add_development_dependency "rspec-rails"
 end
