@@ -15,7 +15,7 @@ module RailsAmp
     end    
 
     def set_rails_amp_format
-      Thread.current[:rails_amp_format] = request[:format]
+      Thread.current[:rails_amp_format] = request.format
     end
   end
 end
