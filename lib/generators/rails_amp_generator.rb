@@ -10,16 +10,24 @@ RUBY
     create_file 'config/rails_amp.yml', <<-FILE
 # ### Here is a sample to enable amp on controller actions
 # ### enable amp on users all actions
-# users:
+# rails_amp:
+#   users:
 #
 # ### enable amp on users#index, users#show, posts#index, posts#show
 # ### controller_name: action1 action2 action3 ...
-# users: index show
-# posts: index show
+# rails_amp:
+#   users: index show
+#   posts: index show
 #
 # ### enable amp on all controllers and actions
-# application:
-users: index show
+# rails_amp:
+#   application:
+#
+# ### disable amp
+# rails_amp:
+#
+rails_amp:
+  users: index show
 FILE
   end
 end

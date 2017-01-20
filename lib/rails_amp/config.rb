@@ -2,7 +2,7 @@ module RailsAmp
   class Config
     # Get the amp enabled controller actions.
     def enables
-      @enables ||= YAML.load_file("#{Rails.root}/config/rails_amp.yml").map{ |k, v| [k, v.split(/\s+/)] }.to_h
+      @enables ||= load_enables
     end
 
     # Return the amp enabled controller actions.
@@ -49,5 +49,11 @@ module RailsAmp
     def adsense=(adsense)
       @adsense = adsense
     end
+
+    private
+
+      def load_enables
+        YAML.load_file("#{Rails.root}/config/rails_amp.yml")['rails_amp'].to_h.map{ |k, v| [k, v.split(/\s+/)] }.to_h
+      end
   end
 end
