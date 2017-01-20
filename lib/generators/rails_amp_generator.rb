@@ -19,6 +19,7 @@ RUBY
 #
 # ### enable amp on all controllers and actions
 # application:
+users: index show
 FILE
   end
 end
