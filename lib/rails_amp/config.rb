@@ -5,7 +5,7 @@ module RailsAmp
       @enables ||= YAML.load_file("#{Rails.root}/config/rails_amp.yml").map{ |k, v| [k, v.split(/\s+/)] }.to_h
     end
 
-    # Set the amp enabled controller actions.
+    # Return the amp enabled controller actions.
     def enables=(enables)
       @enables = enables
     end
@@ -15,9 +15,19 @@ module RailsAmp
       @format ||= nil
     end
 
-    # Set the current format pseudo-globally, i.e. in the Thread.current hash.
+    # Return the current format pseudo-globally, i.e. in the Thread.current hash.
     def format=(format)
       @format = format.to_s
+    end
+
+    # Return the default amp format, default is 'amp'
+    def amp_format
+      @@amp_format ||= :amp
+    end
+
+    # Return the default amp format.
+    def amp_format=(format)
+      @@amp_format = format.to_sym
     end
 
     # Get the current analytics flag, default is false.
@@ -25,7 +35,7 @@ module RailsAmp
       @analytics ||= false
     end
 
-    # Set analytics true when you enable google analytics.
+    # Return analytics true when you enable google analytics.
     def analytics=(analytics)
       @analytics = analytics
     end
@@ -35,7 +45,7 @@ module RailsAmp
       @adsense ||= false
     end
 
-    # Set adsense true when you enable google adsense.
+    # Return adsense true when you enable google adsense.
     def adsense=(adsense)
       @adsense = adsense
     end
