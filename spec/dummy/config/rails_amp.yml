@@ -9,3 +9,5 @@
 #
 # ### enable amp on all controllers and actions
 # application:
+home: index show
+users: index show

@@ -1,5 +1,15 @@
 module RailsAmp
   class Config
+    # Get the amp enabled controller actions.
+    def enables
+      @enables ||= YAML.load_file("#{Rails.root}/config/rails_amp.yml").map{ |k, v| [k, v.split(/\s+/)] }.to_h
+    end
+
+    # Set the amp enabled controller actions.
+    def enables=(enables)
+      @enables = enables
+    end
+
     # Get the current format, default is nil.
     def format
       @format ||= nil

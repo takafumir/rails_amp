@@ -21,7 +21,7 @@ module RailsAmp
     end
 
     # Write methods which delegates to the configuration object.
-    %w( format analytics adsense ).each do |method|
+    %w( format analytics adsense enables ).each do |method|
       module_eval <<-DELEGATORS, __FILE__, __LINE__ + 1
         def #{method}
           config.#{method}
