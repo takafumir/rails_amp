@@ -1,0 +1,11 @@
+# ### Here is a sample to enable amp on controller actions
+# ### enable amp on users all actions
+# users:
+#
+# ### enable amp on users#index, users#show, posts#index, posts#show
+# ### controller_name: action1 action2 action3 ...
+# users: index show
+# posts: index show
+#
+# ### enable amp on all controllers and actions
+# application:
