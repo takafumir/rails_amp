@@ -1,21 +1,19 @@
 module RailsAmp
   class Railtie < Rails::Railtie
-    initializer "rails_amp" do |app|
+    initializer 'rails_amp' do |app|
       ActiveSupport.on_load :action_controller do
-        include RailsAmp::Format
+        include RailsAmp::SetFormat
       end
     end
   end
 
-  module Format
+  module SetFormat
     extend ActiveSupport::Concern
 
     included do
-      before_action :set_rails_amp_format
+      before_action do
+        RailsAmp.config.format = request.format
+      end
     end    
-
-    def set_rails_amp_format
-      Thread.current[:rails_amp_format] = request.format
-    end
   end
 end
