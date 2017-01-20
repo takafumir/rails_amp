@@ -9,6 +9,10 @@ class HomeController < ApplicationController
       format.json { render json:
         { object_id: RailsAmp.config.object_id, format: RailsAmp.config.format }
       }
+      format.amp do
+        lookup_context.formats = [:amp, :html]  # search .amp .html templates
+        render
+      end
     end
   end
 end
