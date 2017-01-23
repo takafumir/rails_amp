@@ -21,10 +21,11 @@ RUBY
 #
 # ### enable amp on all controllers and actions
 # rails_amp:
-#   application:
+#   application: all
 #
 # ### disable amp
 # rails_amp:
+#   application: none
 #
 rails_amp:
   users: index show
