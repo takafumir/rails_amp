@@ -53,7 +53,7 @@ module RailsAmp
     private
 
       def load_enables
-        YAML.load_file("#{Rails.root}/config/rails_amp.yml")['rails_amp'].to_h.map{ |k, v| [k, v.split(/\s+/)] }.to_h
+        YAML.load_file("#{Rails.root}/config/rails_amp.yml")['rails_amp'].to_h.map{ |k, v| [k, v.to_s.split(/\s+/)] }.to_h
       end
   end
 end
