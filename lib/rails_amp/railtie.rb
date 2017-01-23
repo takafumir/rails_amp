@@ -20,8 +20,9 @@ module RailsAmp
     end
 
     def override_with_amp
-      key = self.class.name.underscore.sub(/_controller\z/, '')
-      self.class_eval do
+      klass = self.class
+      key = klass.name.underscore.sub(/_controller\z/, '')
+      klass.class_eval do
         prepend(Module.new {
           RailsAmp.enables[key].to_a.each do |action|
             define_method action.to_sym do
@@ -30,7 +31,6 @@ module RailsAmp
                 format.amp do
                   # search .amp .html templates
                   lookup_context.formats = [:amp, :html]
-                  render
                 end
               end
             end
