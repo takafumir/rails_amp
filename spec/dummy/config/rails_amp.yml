@@ -17,4 +17,4 @@
 # rails_amp:
 #
 rails_amp:
-  home: index about
+  home: about
