@@ -14,16 +14,6 @@ class HomeController < ApplicationController
 end
 
 module Ampify
-  def about
-    super
-    respond_to do |format|
-      format.amp do
-        # search .amp .html templates
-        lookup_context.formats = [:amp, :html]
-        render
-      end
-    end
-  end
 end
 
 class HomeController
@@ -34,7 +24,18 @@ class HomeController
     def amp_render
       if request.format == 'amp'
         self.class.class_eval do
-          prepend Ampify
+          prepend(Module.new {
+            def about
+              super
+              respond_to do |format|
+                format.amp do
+                  # search .amp .html templates
+                  lookup_context.formats = [:amp, :html]
+                  render
+                end
+              end
+            end
+          })
         end
       end
     end

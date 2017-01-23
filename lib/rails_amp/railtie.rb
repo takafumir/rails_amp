@@ -12,8 +12,8 @@ module RailsAmp
 
     included do
       before_action do
-        RailsAmp.config.format = request[:format]
+        RailsAmp.format = request[:format]
       end
-    end    
+    end
   end
 end
