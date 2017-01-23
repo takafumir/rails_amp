@@ -23,7 +23,7 @@ module RailsAmp
       key = self.class.name.underscore.sub(/_controller\z/, '')
       self.class_eval do
         prepend(Module.new {
-          RailsAmp.enables[key].each do |action|
+          RailsAmp.enables[key].to_a.each do |action|
             define_method action.to_sym do
               super()
               respond_to do |format|
