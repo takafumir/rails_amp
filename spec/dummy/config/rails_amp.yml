@@ -17,4 +17,5 @@
 # rails_amp:
 #
 rails_amp:
-  home: about
+  home: help about
+  users: show
