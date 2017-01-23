@@ -32,5 +32,13 @@ module RailsAmp
         end
       DELEGATORS
     end
+
+    def disable_all?
+      RailsAmp.enables.blank?
+    end
+
+    def enable_all?
+      RailsAmp.enables['application'] == 'all'
+    end
   })
 end

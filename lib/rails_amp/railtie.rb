@@ -42,20 +42,12 @@ module RailsAmp
       end
 
       def amp_actions(klass)
-        return []                        if amp_none?
-        return klass.action_methods.to_a if amp_all?
+        return []                        if RailsAmp.disable_all?
+        return klass.action_methods.to_a if RailsAmp.enable_all?
         key = klass.name.underscore.sub(/_controller\z/, '')
         return klass.action_methods.to_a if amp_controller_all?(key)
         return RailsAmp.enables[key]     if amp_controller_actions?(key)
         []
-      end
-
-      def amp_none?
-        RailsAmp.enables == { 'application' => ['none'] }
-      end
-
-      def amp_all?
-        RailsAmp.enables == { 'application' => ['all'] }
       end
 
       def amp_controller_all?(key)

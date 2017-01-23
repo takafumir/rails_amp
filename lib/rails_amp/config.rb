@@ -53,7 +53,18 @@ module RailsAmp
     private
 
       def load_enables
-        YAML.load_file("#{Rails.root}/config/rails_amp.yml")['rails_amp'].to_h.map{ |k, v| [k, v.to_s.split(/\s+/)] }.to_h
+        yaml = YAML.load_file("#{Rails.root}/config/rails_amp.yml")
+        return {} if yaml.blank?
+
+        if yaml.is_a?(Hash) && yaml.has_key?('application')
+          return yaml
+        end
+
+        if yaml.is_a?(Hash)
+          return yaml.map{ |k, v| [k, v.to_s.split(/\s+/)] }.to_h
+        end
+
+        {}
       end
   end
 end

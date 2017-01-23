@@ -1,22 +1,15 @@
-# ### Here is a sample to enable amp on controller actions
+# ### Here are some samples to use amp on controller actions
 # ### enable amp on users all actions
-# rails_amp:
-#   users:
+# users:
 #
 # ### enable amp on users#index, users#show, posts#index, posts#show
-# ### controller_name: action1 action2 action3 ...
-# rails_amp:
-#   users: index show
-#   posts: index show
+# ### controller: action1 action2 action3 ...
+# users: index show
+# posts: index show
 #
 # ### enable amp on all controllers and actions
-# rails_amp:
-#   application: all
+# application: all
 #
-# ### disable amp
-# rails_amp:
-#   application: none
+# ### disable amp, when nothing written
 #
-rails_amp:
-  home: help about
-  users: show
+users: index show
