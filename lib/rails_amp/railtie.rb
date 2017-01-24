@@ -13,7 +13,7 @@ module RailsAmp
     included do
       before_action do
         RailsAmp.format = request[:format]
-        if request[:format] == 'amp'
+        if request[:format] == RailsAmp.amp_format.to_s  # default amp_format is :amp
           override_with_amp
         end
       end
