@@ -22,6 +22,7 @@ module RailsAmp
     private
 
       def override_with_amp
+        return if defined?(@@override_with_amp) && @@override_with_amp
         klass = self.class
         actions = amp_actions(klass)
         klass.class_eval do
@@ -33,11 +34,13 @@ module RailsAmp
                   format.amp do
                     # search .amp .html templates
                     lookup_context.formats = [:amp, :html]
+                    render layout: false
                   end
                 end
               end
             end
           })
+          @@override_with_amp = true
         end
       end
 
