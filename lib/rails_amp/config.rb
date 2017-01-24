@@ -22,12 +22,12 @@ module RailsAmp
 
     # Return the default amp format, default is 'amp'
     def amp_format
-      @@amp_format ||= :amp
+      @amp_format ||= :amp
     end
 
     # Return the default amp format.
     def amp_format=(format)
-      @@amp_format = format.to_sym
+      @amp_format = format.to_sym
     end
 
     # Get the current analytics flag, default is false.

@@ -14,17 +14,17 @@ module RailsAmp
       before_action do
         RailsAmp.format = request[:format]
         if request[:format] == RailsAmp.amp_format.to_s  # default amp_format is :amp
-          override_with_amp
+          override_actions_with_rails_amp
         end
       end
     end
 
     private
 
-      def override_with_amp
-        return if defined?(@@override_with_amp) && @@override_with_amp
+      def override_actions_with_rails_amp
+        return if defined?(@@override_actions_with_rails_amp) && @@override_actions_with_rails_amp
         klass = self.class
-        actions = amp_actions(klass)
+        actions = RailsAmp.target_actions(klass)
         klass.class_eval do
           prepend(Module.new {
             actions.to_a.each do |action|
@@ -40,25 +40,8 @@ module RailsAmp
               end
             end
           })
-          @@override_with_amp = true
+          @@override_actions_with_rails_amp = true
         end
-      end
-
-      def amp_actions(klass)
-        return []                        if RailsAmp.disable_all?
-        return klass.action_methods.to_a if RailsAmp.enable_all?
-        key = klass.name.underscore.sub(/_controller\z/, '')
-        return klass.action_methods.to_a if amp_controller_all?(key)
-        return RailsAmp.enables[key]     if amp_controller_actions?(key)
-        []
-      end
-
-      def amp_controller_all?(key)
-        RailsAmp.enables.has_key?(key) && RailsAmp.enables[key].blank?
-      end
-
-      def amp_controller_actions?(key)
-        RailsAmp.enables.has_key?(key) && RailsAmp.enables[key].present?
       end
   end
 end
