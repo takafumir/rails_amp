@@ -40,16 +40,6 @@ module RailsAmp
       @@analytics = analytics
     end
 
-    # Return the current adsense flag, default is false.
-    def adsense
-      @@adsense ||= false
-    end
-
-    # Set the current adsense flag, set true when you enable google adsense.
-    def adsense=(adsense)
-      @@adsense = adsense
-    end
-
     private
 
       def load_enables
