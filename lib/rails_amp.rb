@@ -21,7 +21,7 @@ module RailsAmp
     end
 
     # Write methods which delegates to the configuration object.
-    %w( format default_format enables analytics ).each do |method|
+    %w( format default_format targets analytics ).each do |method|
       module_eval <<-DELEGATORS, __FILE__, __LINE__ + 1
         def #{method}
           config.#{method}
@@ -34,19 +34,19 @@ module RailsAmp
     end
 
     def disable_all?
-      RailsAmp.enables.blank?
+      RailsAmp.targets.blank?
     end
 
     def enable_all?
-      RailsAmp.enables['application'] == 'all'
+      RailsAmp.targets['application'] == 'all'
     end
 
     def controller_all?(key)
-      RailsAmp.enables.has_key?(key) && RailsAmp.enables[key].blank?
+      RailsAmp.targets.has_key?(key) && RailsAmp.targets[key].blank?
     end
 
     def controller_actions?(key)
-      RailsAmp.enables.has_key?(key) && RailsAmp.enables[key].present?
+      RailsAmp.targets.has_key?(key) && RailsAmp.targets[key].present?
     end
 
     def target_actions(klass)
@@ -54,7 +54,7 @@ module RailsAmp
       return klass.action_methods.to_a if RailsAmp.enable_all?
       key = klass.name.underscore.sub(/_controller\z/, '')
       return klass.action_methods.to_a if RailsAmp.controller_all?(key)
-      return RailsAmp.enables[key]     if RailsAmp.controller_actions?(key)
+      return RailsAmp.targets[key]     if RailsAmp.controller_actions?(key)
       []
     end
   })

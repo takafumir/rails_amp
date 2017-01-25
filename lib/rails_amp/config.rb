@@ -21,13 +21,13 @@ module RailsAmp
     end
 
     # Return the amp enabled controller actions.
-    def enables
-      @@enables ||= load_enables
+    def targets
+      @@targets ||= load_enables
     end
 
     # Set the amp enabled controller actions.
-    def enables=(enables)
-      @@enables = enables
+    def targets=(targets)
+      @@targets = targets
     end
 
     # Return the current analytics flag, default is false.
