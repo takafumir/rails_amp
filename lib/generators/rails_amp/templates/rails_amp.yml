@@ -1,15 +1,20 @@
 # ### Here are some samples to use amp on controller actions
 # ### enable amp on users all actions
-# users:
+# targets:
+#   users:
 #
 # ### enable amp on users#index, users#show, posts#index, posts#show
 # ### controller: action1 action2 action3 ...
-# users: index show
-# posts: index show
+# targets:
+#   users: index show
+#   posts: index show
 #
 # ### enable amp on all controllers and actions
-# application: all
+# targets:
+#   application: all
 #
 # ### disable amp, when nothing written
+# targets:
 #
-users: index show
+targets:
+  users: index show

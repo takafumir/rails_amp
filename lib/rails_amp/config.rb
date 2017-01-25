@@ -22,7 +22,7 @@ module RailsAmp
 
     # Return the amp enabled controller actions.
     def targets
-      @@targets ||= load_enables
+      @@targets ||= config_targets
     end
 
     # Set the amp enabled controller actions.
@@ -42,19 +42,23 @@ module RailsAmp
 
     private
 
-      def load_enables
-        yaml = YAML.load_file("#{Rails.root}/config/rails_amp.yml")
-        return {} if yaml.blank?
+      def config_targets
+        targets = load_config['targets']
+        return {} if targets.blank?
 
-        if yaml.is_a?(Hash) && yaml.has_key?('application')
-          return yaml
+        if targets.is_a?(Hash) && targets.has_key?('application')
+          return targets
         end
 
-        if yaml.is_a?(Hash)
-          return yaml.map{ |k, v| [k, v.to_s.split(/\s+/)] }.to_h
+        if targets.is_a?(Hash)
+          return targets.map{ |k, v| [k, v.to_s.split(/\s+/)] }.to_h
         end
 
         {}
+      end
+
+      def load_config
+        @@config ||= YAML.load_file("#{Rails.root}/config/rails_amp.yml")
       end
   end
 end
