@@ -17,7 +17,7 @@ RUBY
     end
 
     def create_application_layout
-      copy_file 'application.amp.erb', 'app/views/layouts/application.amp.erb'
+      copy_file 'application.amp.erb', "app/views/layouts/application.#{RailsAmp.default_format.to_s}.erb"
     end
   end
 end

@@ -31,10 +31,10 @@ module RailsAmp
               define_method action.to_sym do
                 super()
                 respond_to do |format|
-                  format.amp do
-                    # search .amp .html templates
+                  format.send(RailsAmp.default_format.to_sym) do
+                    # search amp format(default is .amp) .html templates
                     lookup_context.formats = [RailsAmp.default_format, :html]
-                    render layout: "application.#{RailsAmp.default_format}"
+                    render layout: "application.#{RailsAmp.default_format.to_s}"
                   end
                 end
               end

@@ -10,9 +10,9 @@ module RailsAmp
       @format = format.to_s
     end
 
-    # Return the default amp format, default is 'amp'
+    # Return the default amp format, default is :amp
     def default_format
-      @@default_format ||= :amp
+      @@default_format ||= config_default_format
     end
 
     # Set the default amp format.
@@ -32,7 +32,7 @@ module RailsAmp
 
     # Return the current analytics flag, default is false.
     def analytics
-      @@analytics ||= false
+      @@analytics ||= config_analytics
     end
 
     # Set the current analytics flag, set true when you enable google analytics.
@@ -41,6 +41,10 @@ module RailsAmp
     end
 
     private
+
+      def config_default_format
+        load_config['default_format'].try(:to_sym) || :amp
+      end
 
       def config_targets
         targets = load_config['targets']
@@ -55,6 +59,10 @@ module RailsAmp
         end
 
         {}
+      end
+
+      def config_analytics
+        load_config['analytics'] || false
       end
 
       def load_config

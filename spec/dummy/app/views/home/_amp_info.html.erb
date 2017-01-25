@@ -1,7 +1,9 @@
 <%# Just for test. %>
 
-<p>RailsAmp Object ID:      <%= RailsAmp.object_id %></p>
-<p>RailsAmp format:         <%= RailsAmp.format %></p>
-<p>RailsAmp default_format: <%= RailsAmp.default_format %></p>
-<p>RailsAmp targets:        <%= RailsAmp.targets %></p>
-<p>RailsAmp MimeTypes:      <%= Mime::EXTENSION_LOOKUP %></p>
+<p>RailsAmp Object ID:       <%= RailsAmp.object_id %></p>
+<p>RailsAmp format:          <%= RailsAmp.format.inspect %></p>
+<p>RailsAmp default_format:  <%= RailsAmp.default_format.inspect %></p>
+<p>RailsAmp targets:         <%= RailsAmp.targets.inspect %></p>
+<p>RailsAmp analytics:       <%= RailsAmp.analytics.inspect %></p>
+<p>RailsAmp analytics class: <%= RailsAmp.analytics.class %></p>
+<p>RailsAmp MimeTypes:       <%= Mime::EXTENSION_LOOKUP %></p>
