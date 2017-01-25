@@ -34,7 +34,7 @@ module RailsAmp
                   format.send(RailsAmp.default_format.to_sym) do
                     # search amp format(default is .amp) .html templates
                     lookup_context.formats = [RailsAmp.default_format, :html]
-                    render layout: "application.#{RailsAmp.default_format.to_s}"
+                    render layout: 'rails_amp_application.amp'
                   end
                 end
               end
