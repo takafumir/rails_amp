@@ -12,8 +12,12 @@ RUBY
       end
     end
 
-    def create_config_yaml_file
+    def create_config_file
       copy_file 'rails_amp.yml', 'config/rails_amp.yml'
+    end
+
+    def create_application_layout
+      copy_file 'application.amp.erb', 'app/views/layouts/application.amp.erb'
     end
   end
 end

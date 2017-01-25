@@ -34,7 +34,7 @@ module RailsAmp
                   format.amp do
                     # search .amp .html templates
                     lookup_context.formats = [RailsAmp.default_format, :html]
-                    render layout: false
+                    render layout: "application.#{RailsAmp.default_format}"
                   end
                 end
               end
