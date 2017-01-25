@@ -1,53 +1,53 @@
 module RailsAmp
   class Config
-    # Get the amp enabled controller actions.
-    def enables
-      @enables ||= load_enables
-    end
-
-    # Return the amp enabled controller actions.
-    def enables=(enables)
-      @enables = enables
-    end
-
-    # Get the current format, default is nil.
+    # Return the current format, default is ''.
     def format
-      @format ||= nil
+      @format ||= ''
     end
 
-    # Return the current format pseudo-globally, i.e. in the Thread.current hash.
+    # Set the current format pseudo-globally, i.e. in the Thread.current hash.
     def format=(format)
       @format = format.to_s
     end
 
     # Return the default amp format, default is 'amp'
-    def amp_format
-      @amp_format ||= :amp
+    def default_format
+      @@default_format ||= :amp
     end
 
-    # Return the default amp format.
-    def amp_format=(format)
-      @amp_format = format.to_sym
+    # Set the default amp format.
+    def default_format=(default_format)
+      @@default_format = default_format.to_sym
     end
 
-    # Get the current analytics flag, default is false.
+    # Return the amp enabled controller actions.
+    def enables
+      @@enables ||= load_enables
+    end
+
+    # Set the amp enabled controller actions.
+    def enables=(enables)
+      @@enables = enables
+    end
+
+    # Return the current analytics flag, default is false.
     def analytics
-      @analytics ||= false
+      @@analytics ||= false
     end
 
-    # Return analytics true when you enable google analytics.
+    # Set the current analytics flag, set true when you enable google analytics.
     def analytics=(analytics)
-      @analytics = analytics
+      @@analytics = analytics
     end
 
-    # Get the current adsense flag, default is false.
+    # Return the current adsense flag, default is false.
     def adsense
-      @adsense ||= false
+      @@adsense ||= false
     end
 
-    # Return adsense true when you enable google adsense.
+    # Set the current adsense flag, set true when you enable google adsense.
     def adsense=(adsense)
-      @adsense = adsense
+      @@adsense = adsense
     end
 
     private

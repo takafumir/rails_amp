@@ -13,7 +13,7 @@ module RailsAmp
     included do
       before_action do
         RailsAmp.format = request[:format]
-        if request[:format] == RailsAmp.amp_format.to_s  # default amp_format is :amp
+        if request[:format] == RailsAmp.default_format.to_s  # default_format is :amp
           override_actions_with_rails_amp
         end
       end
@@ -33,7 +33,7 @@ module RailsAmp
                 respond_to do |format|
                   format.amp do
                     # search .amp .html templates
-                    lookup_context.formats = [:amp, :html]
+                    lookup_context.formats = [RailsAmp.default_format, :html]
                     render layout: false
                   end
                 end
