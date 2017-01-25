@@ -1,20 +1,36 @@
-# ### Here are some samples to use amp on controller actions
-# ### enable amp on users all actions
+# ### Here are some config samples to use rails_amp.
+
+# --------------------------------------------------
+# To enable amp on specific controllers and actions.
+# --------------------------------------------------
+# ### Enable amp on users all actions.
 # targets:
 #   users:
 #
-# ### enable amp on users#index, users#show, posts#index, posts#show
+# ### Enable amp on users#index, users#show, posts#index, posts#show.
 # ### controller: action1 action2 action3 ...
 # targets:
 #   users: index show
 #   posts: index show
 #
-# ### enable amp on all controllers and actions
+# ### Enable amp on all controllers and actions.
 # targets:
 #   application: all
 #
-# ### disable amp, when nothing written
+# ### Disable amp completely.
 # targets:
 #
 targets:
   users: index show
+
+# --------------------------------------------------
+# To set initial configurations.
+# --------------------------------------------------
+# ### Enable Google Analytics. The default value is false.
+# analytics: true
+#
+# ### Change default amp format. The default value is amp.
+# ### If you want to use 'mobile' as amp format, set 'mobile' to default_format.
+# ### And you can access to amp page like /users/index.mobile
+# default_format: mobile
+#
