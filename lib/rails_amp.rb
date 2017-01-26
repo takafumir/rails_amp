@@ -34,27 +34,27 @@ module RailsAmp
     end
 
     def disable_all?
-      RailsAmp.targets.blank?
+      targets.blank?
     end
 
     def enable_all?
-      RailsAmp.targets['application'] == 'all'
+      targets['application'] == 'all'
     end
 
     def controller_all?(key)
-      RailsAmp.targets.has_key?(key) && RailsAmp.targets[key].blank?
+      targets.has_key?(key) && targets[key].blank?
     end
 
     def controller_actions?(key)
-      RailsAmp.targets.has_key?(key) && RailsAmp.targets[key].present?
+      targets.has_key?(key) && targets[key].present?
     end
 
     def target_actions(klass)
-      return []                        if RailsAmp.disable_all?
-      return klass.action_methods.to_a if RailsAmp.enable_all?
+      return []                        if disable_all?
+      return klass.action_methods.to_a if enable_all?
       key = klass_to_key(klass)
-      return klass.action_methods.to_a if RailsAmp.controller_all?(key)
-      return RailsAmp.targets[key]     if RailsAmp.controller_actions?(key)
+      return klass.action_methods.to_a if controller_all?(key)
+      return targets[key]              if controller_actions?(key)
       []
     end
 
@@ -72,7 +72,7 @@ module RailsAmp
     end
 
     def amp_format?
-      RailsAmp.format == RailsAmp.default_format.to_s
+      format == default_format.to_s
     end
 
     def renderable?(controller)
