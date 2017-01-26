@@ -61,5 +61,10 @@ module RailsAmp
     def klass_to_key(klass)
       klass.name.underscore.sub(/_controller\z/, '')
     end
+
+    def target?(controller_name, action_name)
+      target_actions = target_actions(controller_name.constantize)
+      action_name.in?(target_actions)
+    end
   })
 end
