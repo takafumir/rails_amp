@@ -66,13 +66,17 @@ module RailsAmp
       (key.camelcase + 'Controller').constantize
     end
 
-    def target?(controller_name, action_name)
-      target_actions = target_actions( key_to_klass(controller_name) )
-      action_name.in?(target_actions)
+    def target?(controller)
+      target_actions = target_actions( key_to_klass(controller.controller_name) )
+      controller.action_name.in?(target_actions)
     end
 
-    def amp?
+    def amp_format?
       RailsAmp.format == RailsAmp.default_format.to_s
+    end
+
+    def renderable?(controller)
+      amp_format? && target?(controller)
     end
   })
 end
