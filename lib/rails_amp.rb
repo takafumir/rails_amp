@@ -52,10 +52,14 @@ module RailsAmp
     def target_actions(klass)
       return []                        if RailsAmp.disable_all?
       return klass.action_methods.to_a if RailsAmp.enable_all?
-      key = klass.name.underscore.sub(/_controller\z/, '')
+      key = klass_to_key(klass)
       return klass.action_methods.to_a if RailsAmp.controller_all?(key)
       return RailsAmp.targets[key]     if RailsAmp.controller_actions?(key)
       []
+    end
+
+    def klass_to_key(klass)
+      klass.name.underscore.sub(/_controller\z/, '')
     end
   })
 end
