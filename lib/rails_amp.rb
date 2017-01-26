@@ -66,5 +66,9 @@ module RailsAmp
       target_actions = target_actions(controller_name.constantize)
       action_name.in?(target_actions)
     end
+
+    def amp?
+      RailsAmp.format == RailsAmp.default_format
+    end
   })
 end
