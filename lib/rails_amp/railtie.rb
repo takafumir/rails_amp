@@ -6,7 +6,7 @@ module RailsAmp
       ActiveSupport.on_load :action_controller do
         include RailsAmp::Overrider
       end
-      require 'rails_amp/image_tag_helper'
+      require 'rails_amp/view_helpers/image_tag_helper'
     end
   end
 end
