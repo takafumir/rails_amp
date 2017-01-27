@@ -25,6 +25,27 @@ EOS
         header.chomp.html_safe
       end
 
+      def rails_amp_google_analytics_page_tracking
+        analytics_code =<<"EOS"
+<amp-analytics type="googleanalytics" id="analytics1">
+<script type="application/json">
+{
+  "vars": {
+    "account": "#{RailsAmp.analytics_account}"
+  },
+  "triggers": {
+    "trackPageview": {
+      "on": "visible",
+      "request": "pageview"
+    }
+  }
+}
+</script>
+</amp-analytics>
+EOS
+        analytics_code.chomp.html_safe
+      end
+
       def amp?
         RailsAmp.renderable?(controller)
       end
