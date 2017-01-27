@@ -2,7 +2,6 @@
 <html amp>
   <head>
     <title>Rails AMP</title>
-    <%= rails_amp_html_header %>
 
     <!-- Set page data type by JSON-LD and schema.org. -->
     <!-- If you don't use page data type, remove this block. -->
@@ -24,6 +23,8 @@
         background-color: gray;
       }
     </style>
+
+    <%= rails_amp_html_header %>
   </head>
   <body>
     <%= yield %>
