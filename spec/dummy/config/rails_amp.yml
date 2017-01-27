@@ -26,8 +26,8 @@ targets:
 # --------------------------------------------------
 # To set initial configurations.
 # --------------------------------------------------
-# ### Enable Google Analytics. The default value is false.
-# analytics: true
+# ### Enable Google Analytics page tracking. Set your Google Analytics Account.
+# analytics: UA-*****-*
 #
 # ### Change default amp format. The default value is amp.
 # ### If you want to use 'mobile' as amp format, set 'mobile' to default_format.

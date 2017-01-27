@@ -30,7 +30,7 @@ module RailsAmp
       @@targets = targets
     end
 
-    # Return the current analytics flag, default is false.
+    # Return the current analytics flag, default is ''.
     def analytics
       @@analytics ||= config_analytics
     end
@@ -62,7 +62,7 @@ module RailsAmp
       end
 
       def config_analytics
-        load_config['analytics'] || false
+        load_config['analytics'] || ''
       end
 
       def load_config
