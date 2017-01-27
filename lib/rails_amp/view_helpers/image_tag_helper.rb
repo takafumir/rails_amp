@@ -13,7 +13,7 @@ module RailsAmp
 
         options[:layout] ||= 'fixed'
         options[:width], options[:height] = extract_dimensions(options.delete(:size)) if options[:size]
-        tag('amp-img', options)
+        tag('amp-img', options) + '</amp-img>'.html_safe
       end
 
       ::ActionView::Helpers::AssetTagHelper.module_eval do

@@ -1,2 +1,8 @@
 <%# Just for test. %>
 <%= render 'home/amp_info' %>
+
+<% if amp? %>
+  <p>This is an amp page.</p>
+<% else %>
+  <p>This is a html page.</p>
+<% end %>

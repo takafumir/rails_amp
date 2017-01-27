@@ -25,6 +25,10 @@ EOS
         header.chomp.html_safe
       end
 
+      def amp?
+        RailsAmp.renderable?(controller)
+      end
+
       ::ActionView::Base.send :include, self
     end
   end
