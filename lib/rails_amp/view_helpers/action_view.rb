@@ -16,16 +16,17 @@ module RailsAmp
       def rails_amp_html_header
         header =<<"EOS"
 <!-- Snipet for amp library. -->
-<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
 EOS
         header.html_safe
       end
 
       def rails_amp_google_analytics_page_tracking
-        analytics_code =<<"EOS"
+        if RailsAmp.analytics.present?
+          analytics_code =<<"EOS"
 <!-- Google Analytics Page Tracking for amp pages. -->
-<amp-analytics type="googleanalytics" id="analytics1">
+    <amp-analytics type="googleanalytics" id="analytics1">
     <script type="application/json">
     {
       "vars": {
@@ -41,7 +42,10 @@ EOS
     </script>
     </amp-analytics>
 EOS
-        analytics_code.html_safe
+          return analytics_code.html_safe
+        end
+
+        ''
       end
 
       def rails_amp_canonical_url
