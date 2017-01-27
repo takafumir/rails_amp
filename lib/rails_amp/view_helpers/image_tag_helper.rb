@@ -11,7 +11,7 @@ module RailsAmp
           options[:alt] = options.fetch(:alt){ image_alt(src) }
         end
 
-        options[:layout] ||= 'responsive'
+        options[:layout] ||= 'fixed'
         options[:width], options[:height] = extract_dimensions(options.delete(:size)) if options[:size]
         tag('amp-img', options)
       end
