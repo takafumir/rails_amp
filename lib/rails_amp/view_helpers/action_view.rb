@@ -26,7 +26,8 @@ EOS
         if RailsAmp.analytics.present?
           analytics_code =<<"EOS"
 <!-- Google Analytics Page Tracking for amp pages. -->
-    <amp-analytics type="googleanalytics" id="analytics1">
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    <amp-analytics type="googleanalytics" id="rails_amp_analytics">
     <script type="application/json">
     {
       "vars": {
