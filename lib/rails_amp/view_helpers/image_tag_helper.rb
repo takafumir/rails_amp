@@ -1,3 +1,5 @@
+require 'fastimage'
+
 module RailsAmp
   module ViewHelpers
     module ImageTagHelper
@@ -18,6 +20,10 @@ module RailsAmp
 
         options[:layout] ||= 'fixed'
         options[:width], options[:height] = extract_dimensions(options.delete(:size)) if options[:size]
+
+        if options[:width].blank? || options[:height].blank?
+          options[:width], options[:height] = FastImage.size(request.base_url + src)
+        end
 
         options.select! { |key, _| key.to_s.in?(AMP_IMG_PERMITTED_ATTRIBUTES) }
         tag('amp-img', options) + '</amp-img>'.html_safe
