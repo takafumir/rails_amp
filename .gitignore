@@ -9,3 +9,8 @@ spec/dummy/tmp/
 # Ignore other files
 /vendor/bundle/
 .DS_Store
+*.gem
+*.rbc
+Gemfile.lock
+gemfiles/*.lock
+coverage
