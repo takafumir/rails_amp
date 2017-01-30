@@ -15,9 +15,11 @@ module RailsAmp
 
       def override_actions_with_rails_amp
         klass = self.class
+        return if klass.action_methods.include?('dummy_action_to_check_rails_amp_override')
         actions = RailsAmp.target_actions(klass)
+
         klass.class_eval do
-          return if defined?(@override_actions_with_rails_amp) && @override_actions_with_rails_amp
+          # override amp target actions
           prepend(Module.new {
             actions.to_a.each do |action|
               define_method action.to_sym do
@@ -32,7 +34,7 @@ module RailsAmp
               end
             end
           })
-          @override_actions_with_rails_amp = true
+          def dummy_action_to_check_rails_amp_override; end
         end
       end
   end
