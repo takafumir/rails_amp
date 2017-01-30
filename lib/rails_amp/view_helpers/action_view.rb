@@ -3,7 +3,7 @@ module RailsAmp
     module ActionView
 
       # To add header code in default layout like application.html.erb.
-      def link_rel_amphtml
+      def rails_amp_amphtml_link_tag
         if RailsAmp.target?(controller)
           amp_uri = URI.parse(request.url)
           amp_uri.path = "#{amp_uri.path}.#{RailsAmp.default_format}"
