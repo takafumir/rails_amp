@@ -6,6 +6,5 @@ Rails.application.routes.draw do
   get '/home/help',  to: 'home#help'
   get '/home/about', to: 'home#about'
 
-  get '/users/index', to: 'users#index'
-  get '/users/show',  to: 'users#show'
+  resources :users, :only => [:index, :show]
 end
