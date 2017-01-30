@@ -29,16 +29,12 @@ module RailsAmp
         tag('amp-img', options) + '</amp-img>'.html_safe
       end
 
-      ::ActionView::Helpers::AssetTagHelper.module_eval do
-        alias_method :image_tag_without_amp, :image_tag
-      end
-
       # override image_tag helper
       def image_tag(source, options={})
         if RailsAmp.renderable?(controller)
           amp_image_tag(source, options)
         else
-          image_tag_without_amp(source, options)
+          super
         end
       end
 
