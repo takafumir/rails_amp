@@ -6,7 +6,7 @@ describe RailsAmp do
   end
 
   describe Config do
-    it 'returns correct config default value' do
+    it 'returns correct config default values' do
       expect(RailsAmp.format).to eq ''
       expect(RailsAmp.config_file).to eq "#{Rails.root}/config/rails_amp.yml"
       expect(RailsAmp.default_format).to eq :amp
@@ -20,6 +20,21 @@ describe RailsAmp do
       expect(RailsAmp.default_format).to eq RailsAmp.config.default_format
       expect(RailsAmp.targets).to eq RailsAmp.config.targets
       expect(RailsAmp.analytics).to eq RailsAmp.config.analytics
+    end
+  end
+
+  describe 'when changing amp default format' do
+    before do
+      RailsAmp.config_file = "#{config_dir}/amp_format.yml"
+      RailsAmp.reload_config!
+    end
+
+    it 'returns correct config values' do
+      expect(RailsAmp.format).to eq ''
+      expect(RailsAmp.config_file).to eq "#{config_dir}/amp_format.yml"
+      expect(RailsAmp.default_format).to eq :mobile
+      expect(RailsAmp.targets).to eq({})
+      expect(RailsAmp.analytics).to eq ''
     end
   end
 end

@@ -20,6 +20,16 @@ module RailsAmp
       @@config_file = config_file
     end
 
+    # Return the yaml loaded config, default is YAML.load_file(config_file).
+    def load_config
+      @@load_config ||= config_load_config
+    end
+
+    # Set the config by loading yaml.
+    def load_config=(load_config)
+      @@load_config = load_config
+    end
+
     # Return the default amp format, default is :amp
     def default_format
       @@default_format ||= config_default_format
@@ -52,6 +62,10 @@ module RailsAmp
 
     private
 
+      def config_load_config
+        YAML.load_file(config_file)
+      end
+
       def config_default_format
         load_config['default_format'].try(:to_sym) || :amp
       end
@@ -73,10 +87,6 @@ module RailsAmp
 
       def config_analytics
         load_config['analytics'] || ''
-      end
-
-      def load_config
-        @@config ||= YAML.load_file(config_file)
       end
   end
 end
