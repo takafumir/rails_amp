@@ -15,12 +15,12 @@ module RailsAmp
 
       def override_actions_with_rails_amp
         klass = self.class
-        return if klass.action_methods.include?('dummy_action_to_check_rails_amp_override')
+        return if klass.ancestors.include?(RailsAmp::ActionOverrider)
         actions = RailsAmp.target_actions(klass)
 
         klass.class_eval do
           # override amp target actions
-          prepend(Module.new {
+          RailsAmp::ActionOverrider.module_eval do
             actions.to_a.each do |action|
               define_method action.to_sym do
                 super()
@@ -33,9 +33,12 @@ module RailsAmp
                 end
               end
             end
-          })
-          def dummy_action_to_check_rails_amp_override; end
+          end
+          prepend RailsAmp::ActionOverrider
         end
       end
+  end
+
+  module ActionOverrider
   end
 end
