@@ -49,29 +49,29 @@ module RailsAmp
       targets.has_key?(key) && targets[key].present?
     end
 
-    def target_actions(klass)
-      extract_target_actions(klass) - %w(new create edit update destroy)
+    def target_actions(controller)
+      extract_target_actions(controller) - %w(new create edit update destroy)
     end
 
-    def extract_target_actions(klass)
+    def extract_target_actions(controller)
       return []                        if disable_all?
-      return klass.action_methods.to_a if enable_all?
-      key = klass_to_key(klass)
-      return klass.action_methods.to_a if controller_all?(key)
+      return controller.action_methods.to_a if enable_all?
+      key = controller_to_key(controller)
+      return controller.action_methods.to_a if controller_all?(key)
       return targets[key]              if controller_actions?(key)
       []
     end
 
-    def klass_to_key(klass)
-      klass.name.underscore.sub(/_controller\z/, '')
+    def controller_to_key(controller)
+      controller.name.underscore.sub(/_controller\z/, '')
     end
 
-    def key_to_klass(key)
+    def key_to_controller(key)
       (key.camelcase + 'Controller').constantize
     end
 
     def target?(controller)
-      target_actions = target_actions( key_to_klass(controller.controller_name) )
+      target_actions = target_actions( key_to_controller(controller.controller_name) )
       controller.action_name.in?(target_actions)
     end
 

@@ -14,7 +14,7 @@ module RailsAmp
     private
 
       def override_actions_with_rails_amp
-        klass = self.class
+        klass = self.class  # klass is controller class
         return if klass.ancestors.include?(RailsAmp::ActionOverrider)
         actions = RailsAmp.target_actions(klass)
 
