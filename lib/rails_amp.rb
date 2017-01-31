@@ -87,7 +87,7 @@ module RailsAmp
       format == default_format.to_s
     end
 
-    def renderable?(controller_name, action_name)
+    def amp_renderable?(controller_name, action_name)
       amp_format? && target?(controller_name, action_name)
     end
   })

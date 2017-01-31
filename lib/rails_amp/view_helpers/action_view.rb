@@ -54,7 +54,7 @@ EOS
       end
 
       def amp?
-        RailsAmp.renderable?(controller.controller_name, controller.action_name)
+        RailsAmp.amp_renderable?(controller.controller_name, controller.action_name)
       end
 
       ::ActionView::Base.send :include, self
