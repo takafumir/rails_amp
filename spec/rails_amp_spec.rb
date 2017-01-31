@@ -30,11 +30,8 @@ describe RailsAmp do
     end
 
     it 'returns correct config values' do
-      expect(RailsAmp.format).to eq ''
       expect(RailsAmp.config_file).to eq "#{config_dir}/amp_format.yml"
       expect(RailsAmp.default_format).to eq :mobile
-      expect(RailsAmp.targets).to eq({})
-      expect(RailsAmp.analytics).to eq ''
     end
   end
 
@@ -45,11 +42,14 @@ describe RailsAmp do
     end
 
     it 'returns correct config values' do
-      expect(RailsAmp.format).to eq ''
       expect(RailsAmp.config_file).to eq "#{config_dir}/controller_actions.yml"
-      expect(RailsAmp.default_format).to eq :amp
       expect(RailsAmp.targets).to eq({ 'home' => ['about', 'help'], 'users' => ['show'] })
-      expect(RailsAmp.analytics).to eq ''
+      expect(RailsAmp.disable_all?).to eq false
+      expect(RailsAmp.enable_all?).to eq false
+      expect(RailsAmp.controller_all?('home')).to eq false
+      expect(RailsAmp.controller_all?('users')).to eq false
+      expect(RailsAmp.controller_actions?('home')).to eq true
+      expect(RailsAmp.controller_actions?('users')).to eq true
     end
   end
 
@@ -60,11 +60,12 @@ describe RailsAmp do
     end
 
     it 'returns correct config values' do
-      expect(RailsAmp.format).to eq ''
       expect(RailsAmp.config_file).to eq "#{config_dir}/controller_all.yml"
-      expect(RailsAmp.default_format).to eq :amp
       expect(RailsAmp.targets).to eq({ 'home' => [] })
-      expect(RailsAmp.analytics).to eq ''
+      expect(RailsAmp.disable_all?).to eq false
+      expect(RailsAmp.enable_all?).to eq false
+      expect(RailsAmp.controller_all?('home')).to eq true
+      expect(RailsAmp.controller_actions?('home')).to eq false
     end
   end
 
@@ -75,11 +76,10 @@ describe RailsAmp do
     end
 
     it 'returns correct config values' do
-      expect(RailsAmp.format).to eq ''
       expect(RailsAmp.config_file).to eq "#{config_dir}/disable_all.yml"
-      expect(RailsAmp.default_format).to eq :amp
       expect(RailsAmp.targets).to eq({})
-      expect(RailsAmp.analytics).to eq ''
+      expect(RailsAmp.disable_all?).to eq true
+      expect(RailsAmp.enable_all?).to eq false
     end
   end
 
@@ -90,11 +90,10 @@ describe RailsAmp do
     end
 
     it 'returns correct config values' do
-      expect(RailsAmp.format).to eq ''
       expect(RailsAmp.config_file).to eq "#{config_dir}/enable_all.yml"
-      expect(RailsAmp.default_format).to eq :amp
       expect(RailsAmp.targets).to eq({ 'application' => 'all' })
-      expect(RailsAmp.analytics).to eq ''
+      expect(RailsAmp.disable_all?).to eq false
+      expect(RailsAmp.enable_all?).to eq true
     end
   end
 
@@ -105,10 +104,7 @@ describe RailsAmp do
     end
 
     it 'returns correct config values' do
-      expect(RailsAmp.format).to eq ''
       expect(RailsAmp.config_file).to eq "#{config_dir}/enable_analytics.yml"
-      expect(RailsAmp.default_format).to eq :amp
-      expect(RailsAmp.targets).to eq({})
       expect(RailsAmp.analytics).to eq 'UA-12345-6'
     end
   end
@@ -125,6 +121,12 @@ describe RailsAmp do
       expect(RailsAmp.default_format).to eq :amphtml
       expect(RailsAmp.targets).to eq({ 'home' => ['index', 'about'], 'users' => ['index'] })
       expect(RailsAmp.analytics).to eq 'UA-12345-6'
+      expect(RailsAmp.disable_all?).to eq false
+      expect(RailsAmp.enable_all?).to eq false
+      expect(RailsAmp.controller_all?('home')).to eq false
+      expect(RailsAmp.controller_all?('users')).to eq false
+      expect(RailsAmp.controller_actions?('home')).to eq true
+      expect(RailsAmp.controller_actions?('users')).to eq true
     end
   end
 
