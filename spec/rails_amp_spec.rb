@@ -23,6 +23,14 @@ describe RailsAmp do
     end
   end
 
+  describe 'when using default /config/rails_amp.yml' do
+    it 'returns correct config values' do
+      expect(RailsAmp.targets).to eq({ 'users' => ['index', 'show'] })
+      expect(RailsAmp.target_actions(UsersController)).to eq ['index', 'show']
+      expect(RailsAmp.target_actions(HomeController)).to eq []
+    end
+  end
+
   describe 'when changing amp default format' do
     before do
       RailsAmp.config_file = "#{config_dir}/amp_format.yml"
@@ -50,6 +58,8 @@ describe RailsAmp do
       expect(RailsAmp.controller_all?('users')).to eq false
       expect(RailsAmp.controller_actions?('home')).to eq true
       expect(RailsAmp.controller_actions?('users')).to eq true
+      expect(RailsAmp.target_actions(UsersController)).to eq ['show']
+      expect(RailsAmp.target_actions(HomeController)).to eq ['about', 'help']
     end
   end
 
@@ -66,6 +76,8 @@ describe RailsAmp do
       expect(RailsAmp.enable_all?).to eq false
       expect(RailsAmp.controller_all?('home')).to eq true
       expect(RailsAmp.controller_actions?('home')).to eq false
+      expect(RailsAmp.target_actions(UsersController)).to eq []
+      expect(RailsAmp.target_actions(HomeController)).to eq ['index', 'help', 'about']
     end
   end
 
@@ -80,6 +92,8 @@ describe RailsAmp do
       expect(RailsAmp.targets).to eq({})
       expect(RailsAmp.disable_all?).to eq true
       expect(RailsAmp.enable_all?).to eq false
+      expect(RailsAmp.target_actions(UsersController)).to eq []
+      expect(RailsAmp.target_actions(HomeController)).to eq []
     end
   end
 
@@ -94,6 +108,8 @@ describe RailsAmp do
       expect(RailsAmp.targets).to eq({ 'application' => 'all' })
       expect(RailsAmp.disable_all?).to eq false
       expect(RailsAmp.enable_all?).to eq true
+      expect(RailsAmp.target_actions(UsersController)).to eq ['index', 'show']
+      expect(RailsAmp.target_actions(HomeController)).to eq ['index', 'help', 'about']
     end
   end
 
@@ -127,6 +143,8 @@ describe RailsAmp do
       expect(RailsAmp.controller_all?('users')).to eq false
       expect(RailsAmp.controller_actions?('home')).to eq true
       expect(RailsAmp.controller_actions?('users')).to eq true
+      expect(RailsAmp.target_actions(UsersController)).to eq ['index']
+      expect(RailsAmp.target_actions(HomeController)).to eq ['index', 'about']
     end
   end
 
