@@ -10,6 +10,16 @@ module RailsAmp
       @format = format.to_s
     end
 
+    # Return the config file path, default is "#{Rails.root}/config/rails_amp.yml".
+    def config_file
+      @@config_file ||= "#{Rails.root}/config/rails_amp.yml"
+    end
+
+    # Set the config file path.
+    def config_file=(config_file)
+      @@config_file = config_file
+    end
+
     # Return the default amp format, default is :amp
     def default_format
       @@default_format ||= config_default_format
@@ -66,7 +76,7 @@ module RailsAmp
       end
 
       def load_config
-        @@config ||= YAML.load_file("#{Rails.root}/config/rails_amp.yml")
+        @@config ||= YAML.load_file(config_file)
       end
   end
 end
