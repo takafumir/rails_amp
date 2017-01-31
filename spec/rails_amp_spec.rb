@@ -37,4 +37,96 @@ describe RailsAmp do
       expect(RailsAmp.analytics).to eq ''
     end
   end
+
+  describe 'when using amp on some controller actions' do
+    before do
+      RailsAmp.config_file = "#{config_dir}/controller_actions.yml"
+      RailsAmp.reload_config!
+    end
+
+    it 'returns correct config values' do
+      expect(RailsAmp.format).to eq ''
+      expect(RailsAmp.config_file).to eq "#{config_dir}/controller_actions.yml"
+      expect(RailsAmp.default_format).to eq :amp
+      expect(RailsAmp.targets).to eq({ 'home' => ['about', 'help'], 'users' => ['show'] })
+      expect(RailsAmp.analytics).to eq ''
+    end
+  end
+
+  describe 'when using amp on controller all actions' do
+    before do
+      RailsAmp.config_file = "#{config_dir}/controller_all.yml"
+      RailsAmp.reload_config!
+    end
+
+    it 'returns correct config values' do
+      expect(RailsAmp.format).to eq ''
+      expect(RailsAmp.config_file).to eq "#{config_dir}/controller_all.yml"
+      expect(RailsAmp.default_format).to eq :amp
+      expect(RailsAmp.targets).to eq({ 'home' => [] })
+      expect(RailsAmp.analytics).to eq ''
+    end
+  end
+
+  describe 'when not using amp on all controllers actions' do
+    before do
+      RailsAmp.config_file = "#{config_dir}/disable_all.yml"
+      RailsAmp.reload_config!
+    end
+
+    it 'returns correct config values' do
+      expect(RailsAmp.format).to eq ''
+      expect(RailsAmp.config_file).to eq "#{config_dir}/disable_all.yml"
+      expect(RailsAmp.default_format).to eq :amp
+      expect(RailsAmp.targets).to eq({})
+      expect(RailsAmp.analytics).to eq ''
+    end
+  end
+
+  describe 'when using amp on all controllers actions' do
+    before do
+      RailsAmp.config_file = "#{config_dir}/enable_all.yml"
+      RailsAmp.reload_config!
+    end
+
+    it 'returns correct config values' do
+      expect(RailsAmp.format).to eq ''
+      expect(RailsAmp.config_file).to eq "#{config_dir}/enable_all.yml"
+      expect(RailsAmp.default_format).to eq :amp
+      expect(RailsAmp.targets).to eq({ 'application' => 'all' })
+      expect(RailsAmp.analytics).to eq ''
+    end
+  end
+
+  describe 'when using google analytics' do
+    before do
+      RailsAmp.config_file = "#{config_dir}/enable_analytics.yml"
+      RailsAmp.reload_config!
+    end
+
+    it 'returns correct config values' do
+      expect(RailsAmp.format).to eq ''
+      expect(RailsAmp.config_file).to eq "#{config_dir}/enable_analytics.yml"
+      expect(RailsAmp.default_format).to eq :amp
+      expect(RailsAmp.targets).to eq({})
+      expect(RailsAmp.analytics).to eq 'UA-12345-6'
+    end
+  end
+
+  describe 'when using various configs' do
+    before do
+      RailsAmp.config_file = "#{config_dir}/various.yml"
+      RailsAmp.reload_config!
+    end
+
+    it 'returns correct config values' do
+      expect(RailsAmp.format).to eq ''
+      expect(RailsAmp.config_file).to eq "#{config_dir}/various.yml"
+      expect(RailsAmp.default_format).to eq :amphtml
+      expect(RailsAmp.targets).to eq({ 'home' => ['index', 'about'], 'users' => ['index'] })
+      expect(RailsAmp.analytics).to eq 'UA-12345-6'
+    end
+  end
+
+
 end

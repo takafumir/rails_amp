@@ -62,11 +62,11 @@ module RailsAmp
     end
 
     def extract_target_actions(controller)
-      return []                        if disable_all?
+      return []                             if disable_all?
       return controller.action_methods.to_a if enable_all?
       key = controller_to_key(controller)
       return controller.action_methods.to_a if controller_all?(key)
-      return targets[key]              if controller_actions?(key)
+      return targets[key]                   if controller_actions?(key)
       []
     end
 
