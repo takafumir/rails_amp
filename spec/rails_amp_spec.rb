@@ -5,6 +5,13 @@ describe RailsAmp do
     expect(config_dir).to match( %r(/support/config\z) )
   end
 
+  it 'converts correct controller and key' do
+    expect(RailsAmp.controller_to_key(UsersController)).to eq 'users'
+    expect(RailsAmp.controller_to_key(HomeController)).to eq 'home'
+    expect(RailsAmp.key_to_controller('users')).to eq UsersController
+    expect(RailsAmp.key_to_controller('home')).to eq HomeController
+  end
+
   describe Config do
     it 'returns correct config default values' do
       expect(RailsAmp.format).to eq ''
@@ -177,7 +184,20 @@ describe RailsAmp do
       expect(RailsAmp.target?('home', 'about')).to eq true
       expect(RailsAmp.amp_format?).to eq false
     end
+
+    context 'with amp render' do
+      before do
+        RailsAmp.format = RailsAmp.default_format.to_s
+      end
+
+      it 'should be rendrabale with amp' do
+        expect(RailsAmp.amp_format?).to eq true
+        expect(RailsAmp.amp_renderable?('users', 'index')).to eq true
+        expect(RailsAmp.amp_renderable?('users', 'show')).to eq false
+        expect(RailsAmp.amp_renderable?('home', 'index')).to eq true
+        expect(RailsAmp.amp_renderable?('home', 'help')).to eq false
+        expect(RailsAmp.amp_renderable?('home', 'about')).to eq true
+      end
+    end
   end
-
-
 end
