@@ -1,0 +1,4 @@
+# ### Enable amp on home and users all actions.
+targets:
+  home:
+  users:

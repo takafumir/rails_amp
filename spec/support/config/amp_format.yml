@@ -1,0 +1,4 @@
+# ### Change default amp format. The default value is amp.
+# ### If you want to use 'mobile' as amp format, set 'mobile' to default_format.
+# ### And you can access to amp page like /users/index.mobile
+default_format: mobile

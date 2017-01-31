@@ -1,0 +1,5 @@
+# ### Enable amp on home#about, home#help, users#show
+# ### controller: action1 action2 action3 ...
+targets:
+  home: about help
+  users: show

@@ -1,0 +1,3 @@
+# ### Enable amp on all controllers and actions.
+targets:
+  application: all

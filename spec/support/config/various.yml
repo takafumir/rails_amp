@@ -1,0 +1,12 @@
+# ### Enable amp on home#index, home#about, users#index
+targets:
+  home: index about
+  users: index
+
+# ### Enable Google Analytics page tracking. Set your Google Analytics Account.
+analytics: UA-12345-6
+
+# ### Change default amp format. The default value is amp.
+# ### If you want to use 'amphtml' as amp format, set 'amphtml' to default_format.
+# ### And you can access to amp page like /users/index.amphtml
+default_format: amphtml
