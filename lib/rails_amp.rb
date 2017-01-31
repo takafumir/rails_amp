@@ -50,6 +50,10 @@ module RailsAmp
     end
 
     def target_actions(klass)
+      extract_target_actions(klass) - %w(new create edit update destroy)
+    end
+
+    def extract_target_actions(klass)
       return []                        if disable_all?
       return klass.action_methods.to_a if enable_all?
       key = klass_to_key(klass)
