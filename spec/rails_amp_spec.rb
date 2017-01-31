@@ -23,15 +23,20 @@ describe RailsAmp do
     end
   end
 
-  describe 'when using default /config/rails_amp.yml' do
+  context 'when using default /config/rails_amp.yml' do
     it 'returns correct config values' do
       expect(RailsAmp.targets).to eq({ 'users' => ['index', 'show'] })
       expect(RailsAmp.target_actions(UsersController)).to eq ['index', 'show']
       expect(RailsAmp.target_actions(HomeController)).to eq []
+      expect(RailsAmp.target?('users', 'index')).to eq true
+      expect(RailsAmp.target?('users', 'show')).to eq true
+      expect(RailsAmp.target?('home', 'index')).to eq false
+      expect(RailsAmp.target?('home', 'help')).to eq false
+      expect(RailsAmp.target?('home', 'about')).to eq false
     end
   end
 
-  describe 'when changing amp default format' do
+  context 'when changing amp default format' do
     before do
       RailsAmp.config_file = "#{config_dir}/amp_format.yml"
       RailsAmp.reload_config!
@@ -43,7 +48,7 @@ describe RailsAmp do
     end
   end
 
-  describe 'when using amp on some controller actions' do
+  context 'when using amp on some controller actions' do
     before do
       RailsAmp.config_file = "#{config_dir}/controller_actions.yml"
       RailsAmp.reload_config!
@@ -60,10 +65,15 @@ describe RailsAmp do
       expect(RailsAmp.controller_actions?('users')).to eq true
       expect(RailsAmp.target_actions(UsersController)).to eq ['show']
       expect(RailsAmp.target_actions(HomeController)).to eq ['about', 'help']
+      expect(RailsAmp.target?('users', 'index')).to eq false
+      expect(RailsAmp.target?('users', 'show')).to eq true
+      expect(RailsAmp.target?('home', 'index')).to eq false
+      expect(RailsAmp.target?('home', 'help')).to eq true
+      expect(RailsAmp.target?('home', 'about')).to eq true
     end
   end
 
-  describe 'when using amp on controller all actions' do
+  context 'when using amp on controller all actions' do
     before do
       RailsAmp.config_file = "#{config_dir}/controller_all.yml"
       RailsAmp.reload_config!
@@ -78,10 +88,15 @@ describe RailsAmp do
       expect(RailsAmp.controller_actions?('home')).to eq false
       expect(RailsAmp.target_actions(UsersController)).to eq []
       expect(RailsAmp.target_actions(HomeController)).to eq ['index', 'help', 'about']
+      expect(RailsAmp.target?('users', 'index')).to eq false
+      expect(RailsAmp.target?('users', 'show')).to eq false
+      expect(RailsAmp.target?('home', 'index')).to eq true
+      expect(RailsAmp.target?('home', 'help')).to eq true
+      expect(RailsAmp.target?('home', 'about')).to eq true
     end
   end
 
-  describe 'when not using amp on all controllers actions' do
+  context 'when not using amp on all controllers actions' do
     before do
       RailsAmp.config_file = "#{config_dir}/disable_all.yml"
       RailsAmp.reload_config!
@@ -94,10 +109,15 @@ describe RailsAmp do
       expect(RailsAmp.enable_all?).to eq false
       expect(RailsAmp.target_actions(UsersController)).to eq []
       expect(RailsAmp.target_actions(HomeController)).to eq []
+      expect(RailsAmp.target?('users', 'index')).to eq false
+      expect(RailsAmp.target?('users', 'show')).to eq false
+      expect(RailsAmp.target?('home', 'index')).to eq false
+      expect(RailsAmp.target?('home', 'help')).to eq false
+      expect(RailsAmp.target?('home', 'about')).to eq false
     end
   end
 
-  describe 'when using amp on all controllers actions' do
+  context 'when using amp on all controllers actions' do
     before do
       RailsAmp.config_file = "#{config_dir}/enable_all.yml"
       RailsAmp.reload_config!
@@ -110,10 +130,15 @@ describe RailsAmp do
       expect(RailsAmp.enable_all?).to eq true
       expect(RailsAmp.target_actions(UsersController)).to eq ['index', 'show']
       expect(RailsAmp.target_actions(HomeController)).to eq ['index', 'help', 'about']
+      expect(RailsAmp.target?('users', 'index')).to eq true
+      expect(RailsAmp.target?('users', 'show')).to eq true
+      expect(RailsAmp.target?('home', 'index')).to eq true
+      expect(RailsAmp.target?('home', 'help')).to eq true
+      expect(RailsAmp.target?('home', 'about')).to eq true
     end
   end
 
-  describe 'when using google analytics' do
+  context 'when using google analytics' do
     before do
       RailsAmp.config_file = "#{config_dir}/enable_analytics.yml"
       RailsAmp.reload_config!
@@ -125,7 +150,7 @@ describe RailsAmp do
     end
   end
 
-  describe 'when using various configs' do
+  context 'when using various configs' do
     before do
       RailsAmp.config_file = "#{config_dir}/various.yml"
       RailsAmp.reload_config!
@@ -145,6 +170,12 @@ describe RailsAmp do
       expect(RailsAmp.controller_actions?('users')).to eq true
       expect(RailsAmp.target_actions(UsersController)).to eq ['index']
       expect(RailsAmp.target_actions(HomeController)).to eq ['index', 'about']
+      expect(RailsAmp.target?('users', 'index')).to eq true
+      expect(RailsAmp.target?('users', 'show')).to eq false
+      expect(RailsAmp.target?('home', 'index')).to eq true
+      expect(RailsAmp.target?('home', 'help')).to eq false
+      expect(RailsAmp.target?('home', 'about')).to eq true
+      expect(RailsAmp.amp_format?).to eq false
     end
   end
 
