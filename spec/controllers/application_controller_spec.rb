@@ -7,7 +7,8 @@ describe ApplicationController do
   end
 end
 
-# Specs for view helpers: rails_amp_amphtml_link_tag, rails_amp_canonical_url, amp_renderable?.
+# Specs for ActionView helpers: rails_amp_amphtml_link_tag, rails_amp_canonical_url, amp_renderable?.
+# And specs for ImageTagHelper: amp_image_tag, image_tag
 # These helpers use controller or request object.
 describe UsersController do
   context '#index GET' do

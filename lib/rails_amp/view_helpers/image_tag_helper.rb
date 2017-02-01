@@ -8,6 +8,7 @@ module RailsAmp
         src srcset alt attribution height width fallback heights layout media noloading on placeholder sizes
       )
 
+      # ref: https://github.com/rails/rails/blob/master/actionview/lib/action_view/helpers/asset_tag_helper.rb#L228
       def amp_image_tag(source, options={})
         options = options.symbolize_keys
         check_for_image_tag_errors(options)

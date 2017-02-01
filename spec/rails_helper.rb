@@ -8,6 +8,7 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require File.expand_path('../utilities', __FILE__)
 require 'rails_amp/view_helpers/action_view'
+require 'rails_amp/view_helpers/image_tag_helper'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -60,4 +61,6 @@ RSpec.configure do |config|
   # Include modules
   config.include Utilities
   config.include RailsAmp::ViewHelpers::ActionView
+  config.include ActionView::Helpers::AssetTagHelper
+  config.include RailsAmp::ViewHelpers::ImageTagHelper
 end
