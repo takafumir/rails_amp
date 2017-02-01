@@ -11,32 +11,46 @@ end
 # And specs for ImageTagHelper: amp_image_tag, image_tag
 # These helpers use controller or request object.
 describe UsersController do
+  render_views
+
   context '#index GET' do
     # Users#index is available for amp.
-    it 'returns correct amphtml link tag' do
+    it 'has correct amphtml link tag' do
       get 'index'
       expect(rails_amp_amphtml_link_tag).to eq(
         %Q(<link rel="amphtml" href="#{request.base_url}/users.#{RailsAmp.default_format.to_s}" />)
       )
+      expect(response.body).to include(
+        %Q(<link rel="amphtml" href="#{request.base_url}/users.#{RailsAmp.default_format.to_s}" />)
+      )
     end
 
-    it 'returns correct amphtml link tag with params' do
+    it 'has correct amphtml link tag with params' do
       get 'index', params: {sort: 'name'}
       expect(rails_amp_amphtml_link_tag).to eq(
         %Q(<link rel="amphtml" href="#{request.base_url}/users.#{RailsAmp.default_format.to_s}?sort=name" />)
       )
+      expect(response.body).to include(
+        %Q(<link rel="amphtml" href="#{request.base_url}/users.#{RailsAmp.default_format.to_s}?sort=name" />)
+      )
     end
 
-    it 'returns correct canonical url' do
+    it 'has correct canonical url' do
       get 'index', format: RailsAmp.default_format.to_s
       expect(request.url).to eq("#{request.base_url}/users.#{RailsAmp.default_format.to_s}")
       expect(rails_amp_canonical_url).to eq("#{request.base_url}/users")
+      expect(response.body).to include(
+        %Q(<link rel="canonical" href="#{request.base_url}/users" />)
+      )
     end
 
-    it 'returns correct canonical url with params' do
+    it 'has correct canonical url with params' do
       get 'index', format: RailsAmp.default_format.to_s, params: {sort: 'name'}
       expect(request.url).to eq("#{request.base_url}/users.#{RailsAmp.default_format.to_s}?sort=name")
       expect(rails_amp_canonical_url).to eq("#{request.base_url}/users?sort=name")
+      expect(response.body).to include(
+        %Q(<link rel="canonical" href="#{request.base_url}/users?sort=name" />)
+      )
     end
 
     context 'with html format' do
@@ -45,13 +59,17 @@ describe UsersController do
         expect(amp_renderable?).to eq false
       end
 
-      it 'returns normal image tag' do
+      it 'has normal image tag' do
         get 'index'
         expect(image_tag('kuma.jpg', {size: '30x20', border: '0'})).to match(
           %r(<img border="0" src="/(images|assets)/kuma-?\w*?.jpg" alt="Kuma" width="30" height="20" />)
         )
         expect(image_tag('kuma.jpg')).to match(
           %r(<img src="/(images|assets)/kuma-?\w*?.jpg" alt="Kuma" />)
+        )
+        # According to dummy app default view `home/_amp_info`
+        expect(response.body).to match(
+          %r(<img border="0" src="/(images|assets)/kuma-?\w*?.jpg" alt="Kuma" width="30" height="20" />)
         )
       end
     end
@@ -62,7 +80,7 @@ describe UsersController do
         expect(amp_renderable?).to eq true
       end
 
-      it 'returns amp-img tag' do
+      it 'has amp-img tag' do
         get 'index', format: RailsAmp.default_format.to_s
         expect(image_tag('kuma.jpg', {size: '30x20', border: '0'})).to match(
           %r(<amp-img src="/(images|assets)/kuma-?\w*?.jpg" alt="Kuma" layout="fixed" width="30" height="20" /></amp-img>)
@@ -70,6 +88,10 @@ describe UsersController do
         # `width="400" height="400"` is removed because request.base_url returns dummy url for test.
         expect(image_tag('kuma.jpg')).to match(
           %r(<amp-img src="/(images|assets)/kuma-?\w*?.jpg" alt="Kuma" layout="fixed" /></amp-img>)
+        )
+        # According to dummy app default view `home/_amp_info`
+        expect(response.body).to match(
+          %r(<amp-img src="/(images|assets)/kuma-?\w*?.jpg" alt="Kuma" layout="fixed" width="30" height="20" /></amp-img>)
         )
       end
     end
@@ -97,7 +119,7 @@ end
 describe HomeController do
   context '#help GET' do
     # Home#help is not available for amp.
-    it 'returns correct amphtml link tag' do
+    it 'does not return amphtml link tag' do
       get 'help'
       expect(rails_amp_amphtml_link_tag).to eq ''
     end

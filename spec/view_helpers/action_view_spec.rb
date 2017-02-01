@@ -5,8 +5,8 @@ require 'rails_helper'
 describe RailsAmp::ViewHelpers::ActionView do
   context '#rails_amp_html_header' do
     it 'returns correct amp header' do
-      expect(rails_amp_html_header).to match(/style amp-boilerplate/)
-      expect(rails_amp_html_header).to match(%r(script async src="https://cdn.ampproject.org))
+      expect(rails_amp_html_header).to include('style amp-boilerplate')
+      expect(rails_amp_html_header).to include('script async src="https://cdn.ampproject.org')
     end
   end
 
@@ -29,8 +29,8 @@ describe RailsAmp::ViewHelpers::ActionView do
 
     it 'returns analytics on' do
       expect(RailsAmp.analytics).to eq 'UA-12345-6'
-      expect(rails_amp_google_analytics_page_tracking).to match(/script async custom-element="amp-analytics"/)
-      expect(rails_amp_google_analytics_page_tracking).to match(/"account": "UA-12345-6"/)
+      expect(rails_amp_google_analytics_page_tracking).to include('script async custom-element="amp-analytics"')
+      expect(rails_amp_google_analytics_page_tracking).to include('"account": "UA-12345-6"')
     end
   end
 
