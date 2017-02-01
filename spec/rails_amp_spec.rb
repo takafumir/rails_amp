@@ -14,7 +14,6 @@ describe RailsAmp do
 
   describe Config do
     it 'returns correct config default values' do
-      expect(RailsAmp.format).to eq ''
       expect(RailsAmp.config_file).to eq "#{Rails.root}/config/rails_amp.yml"
       expect(RailsAmp.default_format).to eq :amp
       expect(RailsAmp.targets).to eq({ 'users' => ['index', 'show'] })
@@ -44,8 +43,13 @@ describe RailsAmp do
   end
 
   context 'when changing amp default format' do
-    before do
+    before(:each) do
       RailsAmp.config_file = "#{config_dir}/amp_format.yml"
+      RailsAmp.reload_config!
+    end
+
+    after(:each) do
+      RailsAmp.config_file = "#{Rails.root}/config/rails_amp.yml"
       RailsAmp.reload_config!
     end
 
@@ -56,8 +60,13 @@ describe RailsAmp do
   end
 
   context 'when using amp on some controller actions' do
-    before do
+    before(:each) do
       RailsAmp.config_file = "#{config_dir}/controller_actions.yml"
+      RailsAmp.reload_config!
+    end
+
+    after(:each) do
+      RailsAmp.config_file = "#{Rails.root}/config/rails_amp.yml"
       RailsAmp.reload_config!
     end
 
@@ -81,8 +90,13 @@ describe RailsAmp do
   end
 
   context 'when using amp on controller all actions' do
-    before do
+    before(:each) do
       RailsAmp.config_file = "#{config_dir}/controller_all.yml"
+      RailsAmp.reload_config!
+    end
+
+    after(:each) do
+      RailsAmp.config_file = "#{Rails.root}/config/rails_amp.yml"
       RailsAmp.reload_config!
     end
 
@@ -104,8 +118,13 @@ describe RailsAmp do
   end
 
   context 'when not using amp on all controllers actions' do
-    before do
+    before(:each) do
       RailsAmp.config_file = "#{config_dir}/disable_all.yml"
+      RailsAmp.reload_config!
+    end
+
+    after(:each) do
+      RailsAmp.config_file = "#{Rails.root}/config/rails_amp.yml"
       RailsAmp.reload_config!
     end
 
@@ -125,8 +144,13 @@ describe RailsAmp do
   end
 
   context 'when using amp on all controllers actions' do
-    before do
+    before(:each) do
       RailsAmp.config_file = "#{config_dir}/enable_all.yml"
+      RailsAmp.reload_config!
+    end
+
+    after(:each) do
+      RailsAmp.config_file = "#{Rails.root}/config/rails_amp.yml"
       RailsAmp.reload_config!
     end
 
@@ -146,8 +170,13 @@ describe RailsAmp do
   end
 
   context 'when using google analytics' do
-    before do
+    before(:each) do
       RailsAmp.config_file = "#{config_dir}/enable_analytics.yml"
+      RailsAmp.reload_config!
+    end
+
+    after(:each) do
+      RailsAmp.config_file = "#{Rails.root}/config/rails_amp.yml"
       RailsAmp.reload_config!
     end
 
@@ -158,13 +187,17 @@ describe RailsAmp do
   end
 
   context 'when using various configs' do
-    before do
+    before(:each) do
       RailsAmp.config_file = "#{config_dir}/various.yml"
       RailsAmp.reload_config!
     end
 
+    after(:each) do
+      RailsAmp.config_file = "#{Rails.root}/config/rails_amp.yml"
+      RailsAmp.reload_config!
+    end
+
     it 'returns correct config values' do
-      expect(RailsAmp.format).to eq ''
       expect(RailsAmp.config_file).to eq "#{config_dir}/various.yml"
       expect(RailsAmp.default_format).to eq :amphtml
       expect(RailsAmp.targets).to eq({ 'home' => ['index', 'about'], 'users' => ['index'] })
@@ -186,8 +219,14 @@ describe RailsAmp do
     end
 
     context 'with amp render' do
-      before do
+      before(:each) do
         RailsAmp.format = RailsAmp.default_format.to_s
+      end
+
+      after(:each) do
+        RailsAmp.format = ''
+        RailsAmp.config_file = "#{Rails.root}/config/rails_amp.yml"
+        RailsAmp.reload_config!
       end
 
       it 'should be rendrabale with amp' do

@@ -7,7 +7,7 @@ module RailsAmp
         if RailsAmp.target?(controller.controller_name, controller.action_name)
           amp_uri = URI.parse(request.url)
           amp_uri.path = "#{amp_uri.path}.#{RailsAmp.default_format}"
-          amp_uri.query = h(amp_uri.query) if amp_uri.query.present?
+          amp_uri.query = ERB::Util.h(amp_uri.query) if amp_uri.query.present?
           return %Q(<link rel="amphtml" href="#{amp_uri.to_s}" />).html_safe
         end
         ''
