@@ -21,7 +21,7 @@ describe UsersController do
     end
 
     it 'returns correct amphtml link tag with params' do
-      get 'index', sort: 'name'
+      get 'index', params: {sort: 'name'}
       expect(rails_amp_amphtml_link_tag).to eq(
         %Q(<link rel="amphtml" href="#{request.base_url}/users.#{RailsAmp.default_format.to_s}?sort=name" />)
       )
@@ -34,7 +34,7 @@ describe UsersController do
     end
 
     it 'returns correct canonical url with params' do
-      get 'index', format: RailsAmp.default_format.to_s, sort: 'name'
+      get 'index', format: RailsAmp.default_format.to_s, params: {sort: 'name'}
       expect(request.url).to eq("#{request.base_url}/users.#{RailsAmp.default_format.to_s}?sort=name")
       expect(rails_amp_canonical_url).to eq("#{request.base_url}/users?sort=name")
     end
@@ -44,12 +44,33 @@ describe UsersController do
         get 'index'
         expect(amp_renderable?).to eq false
       end
+
+      it 'returns normal image tag' do
+        get 'index'
+        expect(image_tag('kuma.jpg', {size: '30x20', border: '0'})).to match(
+          %r(<img border="0" src="/(images|assets)/kuma-?\w*?.jpg" alt="Kuma" width="30" height="20" />)
+        )
+        expect(image_tag('kuma.jpg')).to match(
+          %r(<img src="/(images|assets)/kuma-?\w*?.jpg" alt="Kuma" />)
+        )
+      end
     end
 
     context 'with amp format' do
       it 'is renderable by amp' do
         get 'index', format: RailsAmp.default_format.to_s
         expect(amp_renderable?).to eq true
+      end
+
+      it 'returns amp-img tag' do
+        get 'index', format: RailsAmp.default_format.to_s
+        expect(image_tag('kuma.jpg', {size: '30x20', border: '0'})).to match(
+          %r(<amp-img src="/(images|assets)/kuma-?\w*?.jpg" alt="Kuma" layout="fixed" width="30" height="20" /></amp-img>)
+        )
+        # `width="400" height="400"` is removed because request.base_url returns dummy url for test.
+        expect(image_tag('kuma.jpg')).to match(
+          %r(<amp-img src="/(images|assets)/kuma-?\w*?.jpg" alt="Kuma" layout="fixed" /></amp-img>)
+        )
       end
     end
   end
@@ -59,14 +80,14 @@ describe UsersController do
 
     context 'with html format' do
       it 'is not renderable by amp' do
-        get 'show', id: user.id
+        get 'show', params: {id: user.id}
         expect(amp_renderable?).to eq false
       end
     end
 
     context 'with amp format' do
       it 'is renderable by amp' do
-        get 'show', id: user.id, format: RailsAmp.default_format.to_s
+        get 'show', format: RailsAmp.default_format.to_s, params: {id: user.id}
         expect(amp_renderable?).to eq true
       end
     end

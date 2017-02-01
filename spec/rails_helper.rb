@@ -60,7 +60,7 @@ RSpec.configure do |config|
 
   # Include modules
   config.include Utilities
-  config.include RailsAmp::ViewHelpers::ActionView
   config.include ActionView::Helpers::AssetTagHelper
   config.include RailsAmp::ViewHelpers::ImageTagHelper
+  config.include RailsAmp::ViewHelpers::ActionView
 end

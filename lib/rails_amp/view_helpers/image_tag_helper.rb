@@ -32,7 +32,7 @@ module RailsAmp
 
       # override image_tag helper
       def image_tag(source, options={})
-        if RailsAmp.amp_renderable?(controller.controller_name, controller.action_name)
+        if controller && RailsAmp.amp_renderable?(controller.controller_name, controller.action_name)
           amp_image_tag(source, options)
         else
           super
