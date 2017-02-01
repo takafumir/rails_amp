@@ -7,7 +7,7 @@ describe ApplicationController do
   end
 end
 
-# Specs for view helpers: rails_amp_amphtml_link_tag, rails_amp_canonical_url, amp?.
+# Specs for view helpers: rails_amp_amphtml_link_tag, rails_amp_canonical_url, amp_renderable?.
 # These helpers use controller or request object.
 describe UsersController do
   context '#index GET' do
@@ -41,14 +41,14 @@ describe UsersController do
     context 'with html format' do
       it 'is not renderable by amp' do
         get 'index'
-        expect(amp?).to eq false
+        expect(amp_renderable?).to eq false
       end
     end
 
     context 'with amp format' do
       it 'is renderable by amp' do
         get 'index', format: RailsAmp.default_format.to_s
-        expect(amp?).to eq true
+        expect(amp_renderable?).to eq true
       end
     end
   end
@@ -59,14 +59,14 @@ describe UsersController do
     context 'with html format' do
       it 'is not renderable by amp' do
         get 'show', id: user.id
-        expect(amp?).to eq false
+        expect(amp_renderable?).to eq false
       end
     end
 
     context 'with amp format' do
       it 'is renderable by amp' do
         get 'show', id: user.id, format: RailsAmp.default_format.to_s
-        expect(amp?).to eq true
+        expect(amp_renderable?).to eq true
       end
     end
   end
@@ -83,7 +83,7 @@ describe HomeController do
     context 'with html format' do
       it 'is not renderable by amp' do
         get 'help'
-        expect(amp?).to eq false
+        expect(amp_renderable?).to eq false
       end
     end
 

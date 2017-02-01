@@ -53,7 +53,7 @@ EOS
         request.url.gsub(".#{RailsAmp.default_format.to_s}", '')
       end
 
-      def amp?
+      def amp_renderable?
         RailsAmp.amp_renderable?(controller.controller_name, controller.action_name)
       end
 

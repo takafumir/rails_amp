@@ -37,12 +37,12 @@ This code will put out the following html header to inform where the amp url is.
 ## Usage
 How to use my plugin.
 
-You can use `amp?` helper in views.
-Use `amp?` helper in your defalut view to switch some codes.
+You can use `amp_renderable?` helper in views.
+Use `amp_renderable?` helper in your defalut view to switch some codes.
 
 Here is a sample to switch codes for Twitter tweet display.
 
-<% if amp? %>
+<% if amp_renderable? %>
   <amp-twitter width=486 height=657
       layout="responsive"
       data-tweetid="585110598171631616"
