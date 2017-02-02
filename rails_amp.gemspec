@@ -1,24 +1,23 @@
-$:.push File.expand_path("../lib", __FILE__)
+$:.push File.expand_path('../lib', __FILE__)
+require 'rails_amp/version'
 
-# Maintain your gem's version:
-require "rails_amp/version"
-
-# Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "rails_amp"
+  s.name        = 'rails_amp'
   s.version     = RailsAmp::VERSION
-  s.authors     = ["Takafumi Yamano"]
-  s.email       = ["takafumiyamano@gmail.com"]
-  s.homepage    = "http://example.com"
-  s.summary     = "Summary of RailsAmp."
-  s.description = "Description of RailsAmp."
-  s.license     = "MIT"
+  s.authors     = ['Takafumi Yamano']
+  s.email       = ['takafumiyamano@gmail.com']
+  s.homepage    = 'https://github.com/takafumir/rails_amp'
+  s.summary     = 'AMP(Accelerated Mobile Pages) plugin for Ruby on Rails.'
+  s.description = 'RailsAmp is a Ruby on Rails plugin that makes it easy to build views for AMP(Accelerated Mobile Pages).'
+  s.license     = 'MIT'
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files`.split("\n").grep(%r{^(test|spec|features)/})
+  s.require_paths = ['lib']
 
-  s.add_dependency "rails", "~> 5.0.1"
-  s.add_dependency "fastimage"
+  s.add_dependency 'rails', '>= 3.1.0'
+  s.add_dependency 'fastimage'
 
-  s.add_development_dependency "sqlite3"
-  s.add_development_dependency "rspec-rails"
+  s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'rspec-rails'
 end
