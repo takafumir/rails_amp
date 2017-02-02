@@ -36,7 +36,7 @@ In config/initializers/mime_types.rb:
 Mime::Type.register_alias 'text/html', RailsAmp.default_format
 ```
 
-This line is added to enable rails to recognize amp default format. The default foramt is :amp. You can change the amp default format in config/rails_amp.yml
+This line must be added to enable rails to recognize amp default format. The default foramt is :amp. You can change the amp default format in config/rails_amp.yml
 
 ## Setup
 
@@ -148,7 +148,7 @@ Change the amp default format. The default value is 'amp'. If you want to use 'm
 default_format: mobile
 ```
 
-Change formats that used as amp. The default is html. These formats are used in the order, when the amp specialized view like 'users/index.amp.erb' is not found.
+Change formats that used as amp. The default is html. These formats are used in the order, when the amp specialized view like `app/views/users/index.amp.erb` is not found.
 
 ```yaml
 lookup_formats: html xhtml
@@ -195,7 +195,7 @@ In app/views/layouts/rails_amp_application.amp.erb:
 </html>
 ```
 
-Customize the page data type by JSON-LD and schema.org, and write custom css styles in `style amp-custom` block. You can customize the any other parts of this amp layout file as you like, but you need to follow the amp restrictions.
+Customize the page data type by JSON-LD and schema.org, and write custom css styles in `<style amp-custom>` block. You can customize any other parts of this amp layout file as you like, but you need to follow the amp restrictions.
 
 ## Usage
 
@@ -221,11 +221,11 @@ http://example.com/users.mobile
 http://example.com/users.mobile?sort=name
 ```
 
-#### When not creating another view for amp. (When template not found)
+#### When not creating another view for amp. (When the template for amp not found)
 
-If you don't create another view for amp (When the amp template not found), RailsAmp tries to find amp-available formats accoding to the config `lookup_formats`, and uses the existing html view for the amp page as is.
+If you don't create another view for amp (When the template for amp not found), RailsAmp tries to find amp-available formats accoding to the config `lookup_formats`, and uses the existing html view for the amp page as is.
 
-When you enable amp on `users#index` in config and don't create another amp view like `app/views/users/index.amp.erb`, RailsAmp uses the existing html view like `app/views/users/index.html.erb` for the amp page.
+e.g.) When you enable amp on `users#index` in config and don't create another amp view like `app/views/users/index.amp.erb`, RailsAmp uses the existing html view like `app/views/users/index.html.erb` for the amp page.
 
 Then, you can access the amp page as `http://example.com/users.amp` by adding the amp default format at the end of the url before queries.
 
@@ -287,7 +287,7 @@ If `AMP validation successful` shows, the amp page is valid. If some errors are 
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [MIT License](https://github.com/takafumir/rails_amp/blob/master/MIT-LICENSE).
 
 ## Author
 
