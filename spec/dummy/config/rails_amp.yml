@@ -34,3 +34,6 @@ targets:
 # ### And you can access to amp page like /users/index.mobile
 # default_format: mobile
 #
+# ### Set formats that used as amp. The default is html.
+# ### These formats are used in the order, when the amp specialized view like 'users/index.amp.erb' is not found.
+# lookup_formats: html xhtml

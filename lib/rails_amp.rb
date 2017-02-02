@@ -21,7 +21,7 @@ module RailsAmp
     end
 
     # Write methods which delegates to the configuration object.
-    %w( format config_file load_config default_format targets analytics ).each do |method|
+    %w( format config_file load_config default_format targets analytics lookup_formats ).each do |method|
       module_eval <<-DELEGATORS, __FILE__, __LINE__ + 1
         def #{method}
           config.#{method}
@@ -38,6 +38,7 @@ module RailsAmp
       config.default_format = config.send(:config_default_format)
       config.targets = config.send(:config_targets)
       config.analytics = config.send(:config_analytics)
+      config.lookup_formats = config.send(:config_lookup_formats)
       nil
     end
 

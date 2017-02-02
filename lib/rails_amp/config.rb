@@ -60,6 +60,16 @@ module RailsAmp
       @@analytics = analytics
     end
 
+    # Return the added lookup_context formats for amp, default is [:html].
+    def lookup_formats
+      @@lookup_formats ||= config_lookup_formats
+    end
+
+    # Set the added lookup_context formats for amp.
+    def lookup_formats=(lookup_formats)
+      @@lookup_formats = lookup_formats
+    end
+
     private
 
       def config_load_config
@@ -87,6 +97,10 @@ module RailsAmp
 
       def config_analytics
         load_config['analytics'] || ''
+      end
+
+      def config_lookup_formats
+        load_config['lookup_formats'].to_s.split(/\s+/).map(&:to_sym).presence || [:html]
       end
   end
 end

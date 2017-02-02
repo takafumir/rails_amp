@@ -97,6 +97,9 @@ targets:
 # ### And you can access to amp page like /users/index.mobile
 # default_format: mobile
 #
+# ### Set formats that used as amp. The default is html.
+# ### These formats are used in the order, when the amp specialized view like 'users/index.amp.erb' is not found.
+# lookup_formats: html xhtml
 ```
 
 #### Examples
@@ -143,6 +146,12 @@ Change the amp default format. The default value is 'amp'. If you want to use 'm
 
 ```yaml
 default_format: mobile
+```
+
+Change formats that used as amp. The default is html. These formats are used in the order, when the amp specialized view like 'users/index.amp.erb' is not found.
+
+```yaml
+lookup_formats: html xhtml
 ```
 
 ## Customize AMP layout
