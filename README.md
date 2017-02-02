@@ -221,19 +221,19 @@ http://example.com/users.mobile
 http://example.com/users.mobile?sort=name
 ```
 
-#### When not creating another view for amp
+#### When not creating another view for amp. (When template not found)
 
-If you don't create another view for amp, RailsAmp uses the existing html view for the amp page as is.
+If you don't create another view for amp (When the amp template not found), RailsAmp tries to find amp-available formats accoding to the config `lookup_formats`, and uses the existing html view for the amp page as is.
 
 When you enable amp on `users#index` in config and don't create another amp view like `app/views/users/index.amp.erb`, RailsAmp uses the existing html view like `app/views/users/index.html.erb` for the amp page.
 
 Then, you can access the amp page as `http://example.com/users.amp` by adding the amp default format at the end of the url before queries.
 
-#### When creating another view for amp
+#### When creating another view for amp.
 
-If you want to use specialized views for amp pages, you can create another view for amp like `app/views/users/index.amp.erb`. When accessing `http://example.com/users.amp`, the amp specialized view will be used.
+If you want to use specialized views for amp pages, you can create another view for amp like `app/views/users/index.amp.erb`. When accessing `http://example.com/users.amp` and the amp template found, the amp specialized view will be used.
 
-If you change the amp default format, create the view with the format.
+If you change the amp default format, create the view template with the format.
 
 In config/rails_amp.yml:
 
@@ -241,7 +241,7 @@ In config/rails_amp.yml:
 default_format: mobile
 ```
 
-Create the view as `app/views/users/index.mobile.erb`, and access the amp page as `http://example.com/users.mobile`.
+Create the view template as `app/views/users/index.mobile.erb`, and access the amp page as `http://example.com/users.mobile`.
 
 #### View Helpers
 
