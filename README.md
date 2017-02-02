@@ -28,7 +28,7 @@ This step generates the followings.
 insert  config/initializers/mime_types.rb
 create  config/rails_amp.yml
 create  app/views/layouts/rails_amp_application.amp.erb
-```bash
+```
 
 In config/initializers/mime_types.rb:
 
@@ -94,7 +94,7 @@ targets:
 #
 # ### Change default amp format. The default value is amp.
 # ### If you want to use 'mobile' as amp format, set 'mobile' to default_format.
-# ### And you can access to amp page like /users/index.mobile
+# ### And you can access the amp page like /users/index.mobile
 # default_format: mobile
 #
 # ### Set formats that used as amp. The default is html.
@@ -142,7 +142,7 @@ Enable Google Analytics page tracking. Set your Google Analytics Account.
 analytics: UA-*****-*
 ```
 
-Change the amp default format. The default value is 'amp'. If you want to use 'mobile' as the default format, set 'mobile' to default_format. And you can access to the amp page like `http://example.com/users.mobile`.
+Change the amp default format. The default value is 'amp'. If you want to use 'mobile' as the default format, set 'mobile' to default_format. And you can access the amp page like `http://example.com/users.mobile`.
 
 ```yaml
 default_format: mobile
