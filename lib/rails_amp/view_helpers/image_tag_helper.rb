@@ -19,7 +19,15 @@ module RailsAmp
           options[:alt] = options.fetch(:alt){ image_alt(src) }
         end
 
-        options[:width], options[:height] = extract_dimensions(options.delete(:size)) if options[:size]
+        if defined?(extract_dimensions)
+          options[:width], options[:height] = extract_dimensions(options.delete(:size)) if options[:size]
+        else
+          # for rails 4.0.x
+          if size = options.delete(:size)
+            options[:width], options[:height] = size.split("x") if size =~ %r{\A\d+x\d+\z}
+            options[:width] = options[:height] = size if size =~ %r{\A\d+\z}
+          end
+        end
 
         if options[:width].blank? || options[:height].blank?
           options[:width], options[:height] = FastImage.size(request.base_url + src)
