@@ -1,5 +1,6 @@
 <%# Just for test. %>
 <h2>RailsAmp Information</h2>
+<p>Rails Version:            <%= Rails.version %></p>
 <p>RailsAmp Object ID:       <%= RailsAmp.object_id %></p>
 <p>RailsAmp format:          <%= RailsAmp.format.inspect %></p>
 <p>RailsAmp default_format:  <%= RailsAmp.default_format.inspect %></p>
@@ -9,6 +10,7 @@
 <p>RailsAmp MimeTypes:       <%= Mime::EXTENSION_LOOKUP %></p>
 <p>RailsAmp Ancestors:       <%= controller.class.ancestors %></p>
 <p><%= image_tag('rails.png', size: '30x20', border: '0') %></p>
+<p><%= image_tag('rails.png') %></p>
 
 <% if amp_renderable? %>
   <p>This is an amp page.</p>
