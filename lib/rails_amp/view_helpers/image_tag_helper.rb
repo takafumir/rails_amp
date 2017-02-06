@@ -19,28 +19,13 @@ module RailsAmp
           options[:alt] = options.fetch(:alt){ image_alt(src) }
         end
 
-        if defined?(extract_dimensions)
-          options[:width], options[:height] = extract_dimensions(options.delete(:size)) if options[:size]
-        else
-          # for rails 4.0.x
-          if size = options.delete(:size)
-            options[:width], options[:height] = size.split("x") if size =~ %r{\A\d+x\d+\z}
-            options[:width] = options[:height] = size if size =~ %r{\A\d+\z}
-          end
-        end
+        options[:width], options[:height] = extract_dimensions(options.delete(:size)) if options[:size]
 
         if options[:width].blank? || options[:height].blank?
-          source_for_fastimage = source
-          unless source =~ ::ActionView::Helpers::AssetUrlHelper::URI_REGEXP
-            # find_asset is a Sprockets method
-            source_for_fastimage = Rails.application.assets.find_asset(source).try(:pathname).to_s.presence ||
-                                                                          File.join(Rails.public_path, source)
-          end
-          options[:width], options[:height] = FastImage.size(source_for_fastimage)
+          options[:width], options[:height] = compute_image_size(source)
         end
 
         options[:layout] ||= 'fixed'
-
         options.select! { |key, _| key.to_s.in?(AMP_IMG_PERMITTED_ATTRIBUTES) }
         tag('amp-img', options) + '</amp-img>'.html_safe
       end
@@ -53,6 +38,18 @@ module RailsAmp
           super
         end
       end
+
+      private
+
+        def compute_image_size(source)
+          source_for_fastimage = source
+          unless source =~ ::ActionView::Helpers::AssetUrlHelper::URI_REGEXP
+            # find_asset is a Sprockets method
+            source_for_fastimage = Rails.application.assets.find_asset(source).try(:pathname).to_s.presence ||
+                                      File.join(Rails.public_path, source)
+          end
+          FastImage.size(source_for_fastimage) || [300, 300]
+        end
 
       ::ActionView::Base.send :prepend, self
     end
