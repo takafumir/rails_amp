@@ -2,6 +2,10 @@
 
 RailsAmp is a Ruby on Rails plugin that makes it easy to build views for AMP(Accelerated Mobile Pages).
 
+## Supported Versions
+
+Rails 4.1, 4.2, 5.0
+
 ## Installation
 
 In your Gemfile:
@@ -36,23 +40,7 @@ In config/initializers/mime_types.rb:
 Mime::Type.register_alias 'text/html', RailsAmp.default_format
 ```
 
-This line must be added to enable rails to recognize amp default format. The default foramt is :amp. You can change the amp default format in config/rails_amp.yml
-
-## Setup
-
-Add the following code in your default layout head like `application.html.erb`.
-
-In app/views/layouts/application.html.erb:
-
-```html
-<%= rails_amp_amphtml_link_tag %>
-```
-
-This code will put out the html header to inform where the amp url is.
-
-```html
-<link rel="amphtml" href="http://example.com/users.amp" />
-```
+This line must be added to make rails to recognize the amp format. The default format is :amp. You can change the value in config/rails_amp.yml
 
 ## Configurations
 
@@ -102,7 +90,7 @@ targets:
 # lookup_formats: html xhtml
 ```
 
-#### Examples
+### Examples
 
 Set the controllers and actions that you want to enable amp.
 
@@ -154,6 +142,56 @@ Change formats that used as amp. The default is html. These formats are used in 
 lookup_formats: html xhtml
 ```
 
+Note that you need to restart a server to reload the configurations after changing config/rails_amp.yml.
+
+## Setup
+
+Add the following code in your default layout head like `application.html.erb`.
+
+In app/views/layouts/application.html.erb:
+
+```html
+<%= rails_amp_amphtml_link_tag %>
+```
+
+This code will put out the html header to inform where the amp url is.
+
+```html
+<link rel="amphtml" href="http://example.com/users.amp" />
+```
+
+### AMP link for root_url(root_path)
+
+When you enable amp on the controller and action for root_url, the helper `rails_amp_amphtml_link_tag` will put out the following amphtml link in the root url.
+
+In your config/routes.rb:
+
+```ruby
+root 'home#index'
+```
+
+And, in config/rails_amp.yml:
+
+```yaml
+targets:
+  home: index
+```
+
+The helper `rails_amp_amphtml_link_tag` will put out the following in the root url.
+
+```html
+<link rel="amphtml" href="http://example.com/home/index.amp" />
+```
+
+So, you need to add a routing for this amp url.
+
+In your config/routes.rb:
+
+```ruby
+get '/home/index', to: 'home#index'
+```
+
+
 ## Customize AMP layout
 
 In app/views/layouts/rails_amp_application.amp.erb:
@@ -197,6 +235,24 @@ In app/views/layouts/rails_amp_application.amp.erb:
 
 Customize the page data type by JSON-LD and schema.org, and write custom css styles in `<style amp-custom>` block. You can customize any other parts of this amp layout file as you like, but you need to follow the amp restrictions.
 
+### Canonical link for root_url(root_path)
+
+When you enable amp on the controller and action for root_url, the helper `rails_amp_canonical_url` will put out the following canonical link tag.
+
+```html
+<link rel="amphtml" href="http://example.com/home/index" />
+```
+
+If you want to use the root_url as the canonical url, you should customize the codes.
+
+```html
+<% if controller_name == 'controller name for root_url' && action_name == 'action name for root_url'  %>
+  <link rel="canonical" href="<%= root_url %>" />
+<% else %>
+  <link rel="canonical" href="<%= rails_amp_canonical_url %>" />
+<% end %>
+```
+
 ## Usage
 
 To access amp pages, add the amp default format at the end of the url before queries like the followings.
@@ -231,7 +287,7 @@ Then, you can access the amp page as `http://example.com/users.amp` by adding th
 
 #### When creating another view for amp.
 
-If you want to use specialized views for amp pages, you can create another view for amp like `app/views/users/index.amp.erb`. When accessing `http://example.com/users.amp` and the amp template found, the amp specialized view will be used.
+If you want to use specialized views for amp pages, you can create another view for amp like `app/views/users/index.amp.erb`. When accessing `http://example.com/users.amp`, the amp specialized view will be used.
 
 If you change the amp default format, create the view template with the format.
 
@@ -251,10 +307,10 @@ You can use a helper `amp_renderable?` in views. Use `amp_renderable?` in your e
 <% if amp_renderable? %>
   <!-- For amp -->
   <amp-twitter width=486 height=657
-      layout="responsive"
-      data-tweetid="*****"
-      data-cards="hidden">
-      <blockquote placeholder class="twitter-tweet" data-lang="en">*****</blockquote>
+    layout="responsive"
+    data-tweetid="*****"
+    data-cards="hidden">
+    <blockquote placeholder class="twitter-tweet" data-lang="en">*****</blockquote>
   </amp-twitter>
 <% else %>
   <!-- For normal html -->
@@ -262,6 +318,16 @@ You can use a helper `amp_renderable?` in views. Use `amp_renderable?` in your e
   <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 <% end %>
 ```
+
+## Supported AMP tags
+
+### amp-img
+
+AMP requires the `amp-img` tag for image rendering.
+
+
+### FastImage
+
 
 ## Check AMP validation
 
