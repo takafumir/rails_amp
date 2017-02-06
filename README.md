@@ -179,6 +179,8 @@ targets:
 
 The helper `rails_amp_amphtml_link_tag` will put out the following in the root url.
 
+In `http://example.com/`:
+
 ```html
 <link rel="amphtml" href="http://example.com/home/index.amp" />
 ```
@@ -237,10 +239,12 @@ Customize the page data type by JSON-LD and schema.org, and write custom css sty
 
 ### Canonical link for root_url(root_path)
 
-When you enable amp on the controller and action for root_url, the helper `rails_amp_canonical_url` will put out the following canonical link tag.
+When you enable amp on the controller and action for root_url, the helper `rails_amp_canonical_url` will put out the following canonical link tag in the amp url for root_url.
+
+In `http://example.com/home/index.amp`:
 
 ```html
-<link rel="amphtml" href="http://example.com/home/index" />
+<link rel="canonical" href="http://example.com/home/index" />
 ```
 
 If you want to use the root_url as the canonical url, you should customize the codes.
@@ -277,7 +281,7 @@ http://example.com/users.mobile
 http://example.com/users.mobile?sort=name
 ```
 
-#### When not creating another view for amp. (When the template for amp not found)
+### When not creating another view for amp. (When the template for amp not found)
 
 If you don't create another view for amp (When the template for amp not found), RailsAmp tries to find amp-available formats accoding to the config `lookup_formats`, and uses the existing html view for the amp page as is.
 
@@ -285,7 +289,7 @@ e.g.) When you enable amp on `users#index` in config and don't create another am
 
 Then, you can access the amp page as `http://example.com/users.amp` by adding the amp default format at the end of the url before queries.
 
-#### When creating another view for amp.
+### When creating another view for amp.
 
 If you want to use specialized views for amp pages, you can create another view for amp like `app/views/users/index.amp.erb`. When accessing `http://example.com/users.amp`, the amp specialized view will be used.
 
@@ -299,7 +303,7 @@ default_format: mobile
 
 Create the view template as `app/views/users/index.mobile.erb`, and access the amp page as `http://example.com/users.mobile`.
 
-#### View Helpers
+### View Helpers
 
 You can use a helper `amp_renderable?` in views. Use `amp_renderable?` in your existing html views to switch some codes. Here is a sample to switch codes for Twitter tweet display.
 
@@ -321,13 +325,17 @@ You can use a helper `amp_renderable?` in views. Use `amp_renderable?` in your e
 
 ## Supported AMP tags
 
+RailsAmp supports a tag `<amp-img>` so far.
+
 ### amp-img
 
-AMP requires the `amp-img` tag for image rendering.
+You have to use the `<amp-img>` tag to render images in amp pages, instead of a normal html tag `<img>`. When you use a rails built-in helper `image_tag` in view templates, RailsAmp automatically renders images with the `<amp-img>` tag in amp format pages. Also, the helper `image_tag` renders images with the `<img>` tag in normal html format pages.
 
+The `<amp-img>` tag requires `width` and `height` attributes. When the `image_tag` helper is used with a `size` or `width`, `height` option, the `<amp-img>` tag uses the option's value as its `width` and `heigt` attributes.
 
-### FastImage
+If the `image_tag` helper doesn't have a `size` or `width` or `height` option, RailsAmp computes the image size using FastImage. FastImage is a great gem to fetch the size and other information of an image quickly. If FastImage even cannot fetch the image size, the `<amp-img>` tag's width and height attributes are set to `300` and `300`.
 
+So, for amp format pages, I recommend that you use the `image_tag` helper with a `size` or `width`, `height` option as much as possible.
 
 ## Check AMP validation
 
