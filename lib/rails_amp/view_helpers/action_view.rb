@@ -4,13 +4,18 @@ module RailsAmp
 
       # To add header code in default layout like application.html.erb.
       def rails_amp_amphtml_link_tag
-        if RailsAmp.target?(controller.controller_name, controller.action_name)
-          amp_uri = URI.parse(request.url)
-          amp_uri.path = "#{amp_uri.path}.#{RailsAmp.default_format}"
-          amp_uri.query = ERB::Util.h(amp_uri.query) if amp_uri.query.present?
-          return %Q(<link rel="amphtml" href="#{amp_uri.to_s}" />).html_safe
+        return '' unless RailsAmp.target?(controller.controller_name, controller.action_name)
+
+        amp_uri = URI.parse(request.url)
+        if request.path == root_path
+          amp_path = "#{controller.controller_name}/#{controller.action_name}.#{RailsAmp.default_format}"
+        else
+          amp_path = ".#{RailsAmp.default_format}"
         end
-        ''
+        amp_uri.path = amp_uri.path + amp_path
+        amp_uri.query = ERB::Util.h(amp_uri.query) if amp_uri.query.present?
+
+        %Q(<link rel="amphtml" href="#{amp_uri.to_s}" />).html_safe
       end
 
       def rails_amp_html_header
