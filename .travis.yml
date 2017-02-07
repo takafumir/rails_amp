@@ -9,7 +9,7 @@ gemfile:
   - gemfiles/Gemfile-rails.4.1.x
 before_script:
   - cd spec/dummy
-  - bin/rake db:migrate
+  - bundle exec db:migrate
   - cd ../..
 script: bundle exec rspec spec
 notifications:
