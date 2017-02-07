@@ -7,10 +7,11 @@ gemfile:
   - Gemfile
   - gemfiles/Gemfile-rails.4.2.x
   - gemfiles/Gemfile-rails.4.1.x
-script:
+before_script:
   - cd spec/dummy
   - bin/rake db:migrate
   - cd ../..
+script:
   - bundle exec rspec spec
 notifications:
   email: false
