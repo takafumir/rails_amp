@@ -62,14 +62,14 @@ describe UsersController do
       it 'has normal image tag' do
         get 'index'
         expect(image_tag('rails.png', {size: '30x20', border: '0'})).to match(
-          %r(<img border="0" src="/(images|assets)/rails-?\w*?.png" alt="Rails" width="30" height="20" />)
+          %r{(<img border="0" src="/(images|assets)/rails-?\w*?.png" alt="Rails" width="30" height="20" />)|(<img alt="Rails" border="0" height="20" src="/(images|assets)/rails-?\w*?.png" width="30" />)}
         )
         expect(image_tag('rails.png')).to match(
-          %r(<img src="/(images|assets)/rails-?\w*?.png" alt="Rails" />)
+          %r{(<img src="/(images|assets)/rails-?\w*?.png" alt="Rails" />)|(<img alt="Rails" src="/(images|assets)/rails-?\w*?.png" />)}
         )
         # According to dummy app default view `home/_amp_info`
         expect(response.body).to match(
-          %r(<img border="0" src="/(images|assets)/rails-?\w*?.png" alt="Rails" width="30" height="20" />)
+          %r{(<img border="0" src="/(images|assets)/rails-?\w*?.png" alt="Rails" width="30" height="20" />)|(<img alt="Rails" border="0" height="20" src="/(images|assets)/rails-?\w*?.png" width="30" />)}
         )
       end
     end
@@ -83,14 +83,14 @@ describe UsersController do
       it 'has amp-img tag' do
         get 'index', format: RailsAmp.default_format.to_s
         expect(image_tag('rails.png', {size: '30x20', border: '0'})).to match(
-          %r(<amp-img src="/(images|assets)/rails-?\w*?.png" alt="Rails" width="30" height="20" layout="fixed" /></amp-img>)
+          %r{(<amp-img src="/(images|assets)/rails-?\w*?.png" alt="Rails" width="30" height="20" layout="fixed" /></amp-img>)|(<amp-img alt="Rails" height="20" layout="fixed" src="/(images|assets)/rails-?\w*?.png" width="30" /></amp-img>)}
         )
         expect(image_tag('rails.png')).to match(
-          %r(<amp-img src="/(images|assets)/rails-?\w*?.png" alt="Rails" width="50" height="64" layout="fixed" /></amp-img>)
+          %r{(<amp-img src="/(images|assets)/rails-?\w*?.png" alt="Rails" width="50" height="64" layout="fixed" /></amp-img>)|(<amp-img alt="Rails" height="64" layout="fixed" src="/(images|assets)/rails-?\w*?.png" width="50" /></amp-img>)}
         )
         # According to dummy app default view `home/_amp_info`
         expect(response.body).to match(
-          %r(<amp-img src="/(images|assets)/rails-?\w*?.png" alt="Rails" width="30" height="20" layout="fixed" /></amp-img>)
+          %r{(<amp-img src="/(images|assets)/rails-?\w*?.png" alt="Rails" width="30" height="20" layout="fixed" /></amp-img>)|(<amp-img alt="Rails" height="20" layout="fixed" src="/(images|assets)/rails-?\w*?.png" width="30" /></amp-img>)}
         )
       end
     end
