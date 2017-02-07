@@ -1,4 +1,4 @@
-# RailsAmp
+# RailsAmp [![Build Status](https://travis-ci.org/takafumir/rails_amp.svg?branch=master)](https://travis-ci.org/takafumir/rails_amp)
 
 RailsAmp is a Ruby on Rails plugin that makes it easy to build views for AMP(Accelerated Mobile Pages).
 
