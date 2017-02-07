@@ -1,6 +1,6 @@
 module RailsAmp
   class Config
-    # Return the current format, default is ''.
+    # Return the current format, default is ''. The only configuration value that is not global.
     def format
       @format ||= ''
     end
@@ -50,22 +50,22 @@ module RailsAmp
       @@targets = targets
     end
 
-    # Return the current analytics flag, default is ''.
+    # Return the analytics account, default is ''.
     def analytics
       @@analytics ||= config_analytics
     end
 
-    # Set the current analytics flag, set true when you enable google analytics.
+    # Set the analytics account.
     def analytics=(analytics)
       @@analytics = analytics
     end
 
-    # Return the added lookup_context formats for amp, default is [:html].
+    # Return the lookup_context formats for amp, default is [:html].
     def lookup_formats
       @@lookup_formats ||= config_lookup_formats
     end
 
-    # Set the added lookup_context formats for amp.
+    # Set the lookup_context formats for amp.
     def lookup_formats=(lookup_formats)
       @@lookup_formats = lookup_formats
     end
