@@ -94,19 +94,21 @@ targets:
 
 Set the controllers and actions that you want to enable amp.
 
-Enable amp on users all actions.
+Enable amp on users all actions except for new, create, edit, update, destroy actions.
 
 ```yaml
 targets:
   users:
 ```
 
-Enable amp on some specific controllers and actions. e.g.) users#index, users#show, posts#index, posts#show.
+Note that RailsAmp automatically excludes the post-method related actions `new, create, edit, update, destroy` that originally provided by Rails from the amp targets.
+
+Enable amp on some specific controllers and actions. e.g.) users#index, users#show, posts#show.
 
 ```yaml
 targets:
   users: index show
-  posts: index show
+  posts: show
 ```
 
 Enable amp on all controllers and actions. (It's a bit dangerous, so I don't recommend.)
@@ -235,7 +237,7 @@ In app/views/layouts/rails_amp_application.amp.erb:
 </html>
 ```
 
-Customize the page data type by JSON-LD and schema.org, and write custom css styles in `<style amp-custom>` block. You can customize any other parts of this amp layout file as you like, but you need to follow the amp restrictions.
+Customize the page data type by JSON-LD and schema.org, and write custom css styles in the `<style amp-custom>` block. You can customize any other parts of this amp layout file as you like, but you need to follow the amp restrictions.
 
 ### Canonical link for root_url(root_path)
 
@@ -250,7 +252,7 @@ In `http://example.com/home/index.amp`:
 If you want to use the root_url as the canonical url, you should customize the codes.
 
 ```html
-<% if controller_name == 'controller name for root_url' && action_name == 'action name for root_url'  %>
+<% if controller_name == 'home' && action_name == 'index'  %>
   <link rel="canonical" href="<%= root_url %>" />
 <% else %>
   <link rel="canonical" href="<%= rails_amp_canonical_url %>" />
@@ -331,7 +333,7 @@ RailsAmp supports a tag `<amp-img>` so far.
 
 You have to use the `<amp-img>` tag to render images in amp pages, instead of a normal html tag `<img>`. When you use a rails built-in helper `image_tag` in view templates, RailsAmp automatically renders images with the `<amp-img>` tag in amp format pages. Also, the helper `image_tag` renders images with the `<img>` tag in normal html format pages.
 
-The `<amp-img>` tag requires `width` and `height` attributes. When the `image_tag` helper is used with a `size` or `width`, `height` option, the `<amp-img>` tag uses the option's value as its `width` and `heigt` attributes.
+The `<amp-img>` tag requires `width` and `height` attributes. When the `image_tag` helper is used with a `size` or `width`, `height` option, the `<amp-img>` tag uses the option's value as its `width` and `height` attributes.
 
 If the `image_tag` helper doesn't have a `size` or `width` or `height` option, RailsAmp computes the image size using FastImage. FastImage is a great gem to fetch the size and other information of an image quickly. If FastImage even cannot fetch the image size, the `<amp-img>` tag's width and height attributes are set to `300` and `300`.
 
