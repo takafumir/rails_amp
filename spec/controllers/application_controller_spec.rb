@@ -95,24 +95,6 @@ describe UsersController do
       end
     end
   end
-
-  context '#show GET' do
-    let(:user) { User.create(name: 'Taro', email: 'taro@example.com') }
-
-    context 'with html format' do
-      it 'is not renderable by amp' do
-        get 'show', params: {id: user.id}
-        expect(amp_renderable?).to eq false
-      end
-    end
-
-    context 'with amp format' do
-      it 'is renderable by amp' do
-        get 'show', format: RailsAmp.default_format.to_s, params: {id: user.id}
-        expect(amp_renderable?).to eq true
-      end
-    end
-  end
 end
 
 describe HomeController do
