@@ -62,14 +62,14 @@ describe UsersController do
       it 'has normal image tag' do
         get 'index'
         expect(image_tag('rails.png', {size: '30x20', border: '0'})).to match(
-          %r(<img border="0" src="/(images|assets)/rails-?\w*?.jpg" alt="Rails" width="30" height="20" />)
+          %r(<img border="0" src="/(images|assets)/rails-?\w*?.png" alt="Rails" width="30" height="20" />)
         )
         expect(image_tag('rails.png')).to match(
-          %r(<img src="/(images|assets)/rails-?\w*?.jpg" alt="Rails" />)
+          %r(<img src="/(images|assets)/rails-?\w*?.png" alt="Rails" />)
         )
         # According to dummy app default view `home/_amp_info`
         expect(response.body).to match(
-          %r(<img border="0" src="/(images|assets)/rails-?\w*?.jpg" alt="Rails" width="30" height="20" />)
+          %r(<img border="0" src="/(images|assets)/rails-?\w*?.png" alt="Rails" width="30" height="20" />)
         )
       end
     end
@@ -83,15 +83,14 @@ describe UsersController do
       it 'has amp-img tag' do
         get 'index', format: RailsAmp.default_format.to_s
         expect(image_tag('rails.png', {size: '30x20', border: '0'})).to match(
-          %r(<amp-img src="/(images|assets)/rails-?\w*?.jpg" alt="Rails" layout="fixed" width="30" height="20" /></amp-img>)
+          %r(<amp-img src="/(images|assets)/rails-?\w*?.png" alt="Rails" width="30" height="20" layout="fixed" /></amp-img>)
         )
-        # `width="400" height="400"` is removed because request.base_url returns dummy url for test.
         expect(image_tag('rails.png')).to match(
-          %r(<amp-img src="/(images|assets)/rails-?\w*?.jpg" alt="Rails" layout="fixed" /></amp-img>)
+          %r(<amp-img src="/(images|assets)/rails-?\w*?.png" alt="Rails" width="50" height="64" layout="fixed" /></amp-img>)
         )
         # According to dummy app default view `home/_amp_info`
         expect(response.body).to match(
-          %r(<amp-img src="/(images|assets)/rails-?\w*?.jpg" alt="Rails" layout="fixed" width="30" height="20" /></amp-img>)
+          %r(<amp-img src="/(images|assets)/rails-?\w*?.png" alt="Rails" width="30" height="20" layout="fixed" /></amp-img>)
         )
       end
     end
