@@ -116,7 +116,7 @@ describe HomeController do
       it 'is not renderable by amp' do
         expect do
           get 'help', format: RailsAmp.default_format.to_s
-        end.to raise_error(ActionController::UnknownFormat)
+        end.to raise_error(StandardError)  # ActionView::MissingTemplate or ActionController::UnknownFormat
       end
     end
   end

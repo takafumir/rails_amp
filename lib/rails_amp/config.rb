@@ -1,3 +1,5 @@
+require 'yaml'
+
 module RailsAmp
   class Config
     # Return the current format, default is ''. The only configuration value that is not global.
