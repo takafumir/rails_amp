@@ -209,8 +209,7 @@ In app/views/layouts/rails_amp_application.amp.erb:
     <link rel="canonical" href="<%= rails_amp_canonical_url %>" />
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 
-    <!-- Set page data type by JSON-LD and schema.org. -->
-    <!-- If you don't use page data type, remove this block. -->
+    <!-- Set page data type by JSON-LD with schema.org. -->
     <script type="application/ld+json">
       {
         "@context": "http://schema.org",
@@ -228,16 +227,17 @@ In app/views/layouts/rails_amp_application.amp.erb:
       }
     </style>
 
-    <%= rails_amp_google_analytics_page_tracking %>
+    <%= rails_amp_google_analytics_head %>
     <%= rails_amp_html_header %>
   </head>
   <body>
+    <%= rails_amp_google_analytics_page_tracking %>
     <%= yield %>
   </body>
 </html>
 ```
 
-Customize the page data type by JSON-LD and schema.org, and write custom css styles in the `<style amp-custom>` block. You can customize any other parts of this amp layout file as you like, but you need to follow the amp restrictions.
+Customize the page data type by JSON-LD with schema.org, and write custom css styles in the `<style amp-custom>` block. You can customize any other parts of this amp layout file as you like, but you need to follow the amp restrictions.
 
 ### Canonical link for root_url(root_path)
 
