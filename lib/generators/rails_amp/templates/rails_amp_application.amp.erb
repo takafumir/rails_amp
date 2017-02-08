@@ -25,10 +25,11 @@
       }
     </style>
 
-    <%= rails_amp_google_analytics_page_tracking %>
+    <%= rails_amp_google_analytics_head %>
     <%= rails_amp_html_header %>
   </head>
   <body>
+    <%= rails_amp_google_analytics_page_tracking %>
     <%= yield %>
   </body>
 </html>

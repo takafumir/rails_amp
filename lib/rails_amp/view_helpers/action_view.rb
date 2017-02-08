@@ -27,31 +27,38 @@ EOS
         header.html_safe
       end
 
-      def rails_amp_google_analytics_page_tracking
-        if RailsAmp.analytics.present?
-          analytics_code =<<"EOS"
-<!-- Google Analytics Page Tracking for amp pages. -->
+      def rails_amp_google_analytics_head
+        return '' if RailsAmp.analytics.blank?
+
+        analytics_head =<<"EOS"
+<!-- Google Analytics for amp pages. -->
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+EOS
+        analytics_head.html_safe
+      end
+
+      def rails_amp_google_analytics_page_tracking
+        return '' if RailsAmp.analytics.blank?
+
+        analytics_code =<<"EOS"
+<!-- Google Analytics Page Tracking for amp pages. -->
     <amp-analytics type="googleanalytics" id="rails_amp_analytics">
-    <script type="application/json">
-    {
-      "vars": {
-        "account": "#{RailsAmp.analytics}"
-      },
-      "triggers": {
-        "trackPageview": {
-          "on": "visible",
-          "request": "pageview"
+      <script type="application/json">
+      {
+        "vars": {
+          "account": "#{RailsAmp.analytics}"
+        },
+        "triggers": {
+          "trackPageview": {
+            "on": "visible",
+            "request": "pageview"
+          }
         }
       }
-    }
-    </script>
+      </script>
     </amp-analytics>
 EOS
-          return analytics_code.html_safe
-        end
-
-        ''
+        analytics_code.html_safe
       end
 
       def rails_amp_canonical_url
