@@ -1,6 +1,7 @@
 require 'rails_helper'
 
-# Specs for view helpers: rails_amp_html_header, rails_amp_google_analytics_page_tracking
+# Specs for view helpers:
+# rails_amp_html_header, rails_amp_google_analytics_head, rails_amp_google_analytics_page_tracking
 # These helpers don't use controller or request object.
 describe RailsAmp::ViewHelpers::ActionView do
   context '#rails_amp_html_header' do
@@ -10,14 +11,15 @@ describe RailsAmp::ViewHelpers::ActionView do
     end
   end
 
-  context '#rails_amp_google_analytics_page_tracking disabled' do
+  context '#rails_amp_google_analytics disabled' do
     it 'returns analytics off' do
       expect(RailsAmp.analytics).to eq ''
+      expect(rails_amp_google_analytics_head).to eq ''
       expect(rails_amp_google_analytics_page_tracking).to eq ''
     end
   end
 
-  context '#rails_amp_google_analytics_page_tracking enabled' do
+  context '#rails_amp_google_analytics enabled' do
     before(:each) do
       RailsAmp.analytics = 'UA-12345-6'
     end
@@ -29,7 +31,7 @@ describe RailsAmp::ViewHelpers::ActionView do
 
     it 'returns analytics on' do
       expect(RailsAmp.analytics).to eq 'UA-12345-6'
-      expect(rails_amp_google_analytics_page_tracking).to include('script async custom-element="amp-analytics"')
+      expect(rails_amp_google_analytics_head).to include('script async custom-element="amp-analytics"')
       expect(rails_amp_google_analytics_page_tracking).to include('"account": "UA-12345-6"')
     end
   end
