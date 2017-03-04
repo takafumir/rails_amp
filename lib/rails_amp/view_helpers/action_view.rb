@@ -4,11 +4,11 @@ module RailsAmp
 
       # To add header code in default layout like application.html.erb.
       def rails_amp_amphtml_link_tag
-        return '' unless RailsAmp.target?(controller.controller_name, controller.action_name)
+        return '' unless RailsAmp.target?(controller.controller_path, controller.action_name)
 
         amp_uri = URI.parse(request.url)
         if request.path == root_path
-          amp_path = "#{controller.controller_name}/#{controller.action_name}.#{RailsAmp.default_format}"
+          amp_path = "#{controller.controller_path}/#{controller.action_name}.#{RailsAmp.default_format}"
         else
           amp_path = ".#{RailsAmp.default_format}"
         end
@@ -66,7 +66,7 @@ EOS
       end
 
       def amp_renderable?
-        RailsAmp.amp_renderable?(controller.controller_name, controller.action_name)
+        RailsAmp.amp_renderable?(controller.controller_path, controller.action_name)
       end
 
       ::ActionView::Base.send :include, self

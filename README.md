@@ -252,7 +252,7 @@ In `http://example.com/home/index.amp`:
 If you want to use the root_url as the canonical url, you should customize the codes.
 
 ```ruby
-<% if controller_name == 'home' && action_name == 'index'  %>
+<% if controller_path == 'home' && action_name == 'index'  %>
   <link rel="canonical" href="<%= root_url %>" />
 <% else %>
   <link rel="canonical" href="<%= rails_amp_canonical_url %>" />

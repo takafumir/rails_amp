@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   get '/home/index', to: 'home#index'
   get '/home/help',  to: 'home#help'
   get '/home/about', to: 'home#about'
-
+  namespace :admin do
+    resources :sessions
+    resources :users, :only => [:index, :show]
+  end
   resources :users, :only => [:index, :show]
 end

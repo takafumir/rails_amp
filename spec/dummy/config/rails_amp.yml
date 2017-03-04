@@ -22,7 +22,7 @@
 #
 targets:
   users: index show
-
+  admin/users: index show
 # --------------------------------------------------
 # To set initial configurations.
 # --------------------------------------------------
