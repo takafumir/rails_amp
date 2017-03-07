@@ -10,13 +10,14 @@ describe RailsAmp do
     expect(RailsAmp.controller_to_key(HomeController)).to eq 'home'
     expect(RailsAmp.key_to_controller('users')).to eq UsersController
     expect(RailsAmp.key_to_controller('home')).to eq HomeController
+    expect(RailsAmp.key_to_controller('admin/users')).to eq Admin::UsersController
   end
 
   describe Config do
     it 'returns correct config default values' do
       expect(RailsAmp.config_file).to eq "#{Rails.root}/config/rails_amp.yml"
       expect(RailsAmp.default_format).to eq :amp
-      expect(RailsAmp.targets).to eq({ 'users' => ['index', 'show'] })
+      expect(RailsAmp.targets).to eq("users"=>["index", "show"], "admin/users"=>["index", "show"])
       expect(RailsAmp.analytics).to eq ''
     end
 
@@ -31,7 +32,7 @@ describe RailsAmp do
 
   context 'when using default /config/rails_amp.yml' do
     it 'returns correct config values' do
-      expect(RailsAmp.targets).to eq({ 'users' => ['index', 'show'] })
+      expect(RailsAmp.targets).to eq("users"=>["index", "show"], "admin/users"=>["index", "show"])
       expect(RailsAmp.target_actions(UsersController)).to eq ['index', 'show']
       expect(RailsAmp.target_actions(HomeController)).to eq []
       expect(RailsAmp.target?('users', 'index')).to eq true
@@ -39,6 +40,8 @@ describe RailsAmp do
       expect(RailsAmp.target?('home', 'index')).to eq false
       expect(RailsAmp.target?('home', 'help')).to eq false
       expect(RailsAmp.target?('home', 'about')).to eq false
+      expect(RailsAmp.target?('admin/users', 'index')).to eq true
+      expect(RailsAmp.target?('admin/sessions', 'index')).to eq false
     end
   end
 
@@ -166,6 +169,8 @@ describe RailsAmp do
       expect(RailsAmp.target?('home', 'index')).to eq true
       expect(RailsAmp.target?('home', 'help')).to eq true
       expect(RailsAmp.target?('home', 'about')).to eq true
+      expect(RailsAmp.target?('admin/users', 'index')).to eq true
+      expect(RailsAmp.target?('admin/sessions', 'index')).to eq true
     end
   end
 
