@@ -97,7 +97,12 @@ describe UsersController do
 
     context '#redirect GET' do
       it 'allows redirect_to or render' do
-        get 'index', params: { redirect_test: true }, format: RailsAmp.default_format.to_s
+        if Gem.loaded_specs["rails"].version.to_s >= "5"
+          get 'index', params: { redirect_test: true }, format: RailsAmp.default_format.to_s
+        else
+          get 'index', redirect_test: true, format: RailsAmp.default_format.to_s
+        end
+
         expect(response).to redirect_to(root_path)
       end
     end
