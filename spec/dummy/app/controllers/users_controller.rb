@@ -1,6 +1,7 @@
 # Just for test.
 class UsersController < ApplicationController
   def index
+    redirect_to root_path if params['redirect_test'] == "true"
   end
 
   def show
