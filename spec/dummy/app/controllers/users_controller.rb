@@ -7,6 +7,10 @@ class UsersController < ApplicationController
   def show
   end
 
+  def trailing_slash
+    render layout: 'trailing_slash'
+  end
+
   def new
   end
 

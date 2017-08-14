@@ -21,7 +21,7 @@
 # targets:
 #
 targets:
-  users: index show
+  users: index show trailing_slash
   admin/users: index show
 # --------------------------------------------------
 # To set initial configurations.
