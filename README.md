@@ -162,6 +162,19 @@ This code will put out the html header to inform where the amp url is.
 <link rel="amphtml" href="http://example.com/users.amp" />
 ```
 
+If you need to use trailing slash option, use can use ``trailing_slash option``
+
+
+```html
+<%= rails_amp_amphtml_link_tag(trailing_slash: true) %>
+```
+
+This code will generate amp url with trailing slash.
+
+```html
+<link rel="amphtml" href="http://example.com/users.amp/" />
+```
+
 ### AMP link for root_url(root_path)
 
 When you enable amp on the controller and action for root_url, the helper `rails_amp_amphtml_link_tag` will put out the following amphtml link in the root url.

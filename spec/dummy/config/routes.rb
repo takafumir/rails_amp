@@ -9,5 +9,9 @@ Rails.application.routes.draw do
     resources :sessions
     resources :users, :only => [:index, :show]
   end
-  resources :users, :only => [:index, :show]
+  resources :users, :only => [:index, :show] do
+    collection do
+      get :trailing_slash
+    end
+  end
 end

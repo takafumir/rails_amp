@@ -73,6 +73,27 @@ describe UsersController do
         )
       end
     end
+    context '#trailing_slash GET' do
+      it 'has correct amphtml(with trailing slash) link tag' do
+        get 'trailing_slash'
+        expect(rails_amp_amphtml_link_tag(trailing_slash: true)).to eq(
+          %Q(<link rel="amphtml" href="#{request.base_url}/users/trailing_slash.#{RailsAmp.default_format.to_s}/" />)
+        )
+        expect(response.body).to include(
+          %Q(<link rel="amphtml" href="#{request.base_url}/users/trailing_slash.#{RailsAmp.default_format.to_s}/" />)
+        )
+      end
+
+      it 'has correct amphtml(with trailing slash) link tag with params' do
+        get 'trailing_slash', params: {sort: 'name'}
+        expect(rails_amp_amphtml_link_tag(trailing_slash: true)).to eq(
+          %Q(<link rel="amphtml" href="#{request.base_url}/users/trailing_slash.#{RailsAmp.default_format.to_s}/?sort=name" />)
+        )
+        expect(response.body).to include(
+          %Q(<link rel="amphtml" href="#{request.base_url}/users/trailing_slash.#{RailsAmp.default_format.to_s}/?sort=name" />)
+        )
+      end
+    end
 
     context 'with amp format' do
       it 'is renderable by amp' do

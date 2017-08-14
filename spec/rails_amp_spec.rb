@@ -17,7 +17,7 @@ describe RailsAmp do
     it 'returns correct config default values' do
       expect(RailsAmp.config_file).to eq "#{Rails.root}/config/rails_amp.yml"
       expect(RailsAmp.default_format).to eq :amp
-      expect(RailsAmp.targets).to eq("users"=>["index", "show"], "admin/users"=>["index", "show"])
+      expect(RailsAmp.targets).to eq("users"=>["index", "show", "trailing_slash"], "admin/users"=>["index", "show"])
       expect(RailsAmp.analytics).to eq ''
     end
 
@@ -32,8 +32,8 @@ describe RailsAmp do
 
   context 'when using default /config/rails_amp.yml' do
     it 'returns correct config values' do
-      expect(RailsAmp.targets).to eq("users"=>["index", "show"], "admin/users"=>["index", "show"])
-      expect(RailsAmp.target_actions(UsersController)).to eq ['index', 'show']
+      expect(RailsAmp.targets).to eq("users"=>["index", "show", "trailing_slash"], "admin/users"=>["index", "show"])
+      expect(RailsAmp.target_actions(UsersController)).to eq ['index', 'show', 'trailing_slash']
       expect(RailsAmp.target_actions(HomeController)).to eq []
       expect(RailsAmp.target?('users', 'index')).to eq true
       expect(RailsAmp.target?('users', 'show')).to eq true
@@ -162,7 +162,7 @@ describe RailsAmp do
       expect(RailsAmp.targets).to eq({ 'application' => 'all' })
       expect(RailsAmp.disable_all?).to eq false
       expect(RailsAmp.enable_all?).to eq true
-      expect(RailsAmp.target_actions(UsersController)).to eq ['index', 'show']
+      expect(RailsAmp.target_actions(UsersController)).to match_array ['index', 'trailing_slash', 'show']
       expect(RailsAmp.target_actions(HomeController)).to eq ['index', 'help', 'about']
       expect(RailsAmp.target?('users', 'index')).to eq true
       expect(RailsAmp.target?('users', 'show')).to eq true
