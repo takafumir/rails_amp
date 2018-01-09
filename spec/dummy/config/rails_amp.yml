@@ -37,3 +37,5 @@ targets:
 # ### Set formats that used as amp. The default is html.
 # ### These formats are used in the order, when the amp specialized view like 'users/index.amp.erb' is not found.
 # lookup_formats: html xhtml
+
+layout: amp

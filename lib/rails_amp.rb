@@ -21,7 +21,7 @@ module RailsAmp
     end
 
     # Write methods which delegates to the configuration object.
-    %w( format config_file load_config default_format targets analytics lookup_formats ).each do |method|
+    %w( format config_file load_config default_format targets analytics lookup_formats layout ).each do |method|
       module_eval <<-DELEGATORS, __FILE__, __LINE__ + 1
         def #{method}
           config.#{method}
@@ -34,11 +34,12 @@ module RailsAmp
     end
 
     def reload_config!
-      config.load_config = config.send(:config_load_config)
+      config.load_config    = config.send(:config_load_config)
       config.default_format = config.send(:config_default_format)
-      config.targets = config.send(:config_targets)
-      config.analytics = config.send(:config_analytics)
+      config.targets        = config.send(:config_targets)
+      config.analytics      = config.send(:config_analytics)
       config.lookup_formats = config.send(:config_lookup_formats)
+      config.layout         = config.send(:config_layout)
       nil
     end
 
@@ -77,6 +78,8 @@ module RailsAmp
 
     def key_to_controller(key)
       (key.camelcase + 'Controller').constantize
+    rescue NameError
+      ApplicationController
     end
 
     def target?(controller_path, action_name)
