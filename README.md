@@ -144,6 +144,12 @@ Change formats that used as amp. The default is html. These formats are used in 
 lookup_formats: html xhtml
 ```
 
+Change layout for your amp pages.
+
+```yaml
+layout: application # application.amp.erb for example
+```
+
 Note that you need to restart a server to reload the configurations after changing config/rails_amp.yml.
 
 ## Setup

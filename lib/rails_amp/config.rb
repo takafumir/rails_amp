@@ -42,6 +42,16 @@ module RailsAmp
       @@default_format = default_format.to_sym
     end
 
+    # Return the layout
+    def layout
+      @@layout
+    end
+
+    # Set the layout.
+    def layout=(layout)
+      @@layout = layout
+    end
+
     # Return the amp enabled controller actions.
     def targets
       @@targets ||= config_targets
@@ -100,6 +110,10 @@ module RailsAmp
       def config_analytics
         load_config['analytics'] || ''
       end
+
+      def config_layout
+        load_config['layout'] || 'rails_amp_application'
+      end      
 
       def config_lookup_formats
         load_config['lookup_formats'].to_s.split(/\s+/).map(&:to_sym).presence || [:html]

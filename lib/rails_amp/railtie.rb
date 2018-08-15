@@ -3,6 +3,8 @@ require 'rails_amp/overrider'
 module RailsAmp
   class Railtie < Rails::Railtie
     initializer 'rails_amp' do |app|
+      RailsAmp.reload_config!
+
       ActiveSupport.on_load :action_controller do
         include RailsAmp::Overrider
       end
